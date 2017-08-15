@@ -8,6 +8,8 @@ call vundle#begin()
 " :PluginSearch foo - searches for foo; append `!` to refresh local cache
 " :PluginClean      - confirms removal of unused plugins; append `!` to auto-approve removal
 Plugin 'VundleVim/Vundle.vim'
+" Editorconfig
+Plugin 'editorconfig/editorconfig-vim'
 " Support for git
 Plugin 'tpope/vim-fugitive'
 " Searching with :Ack 
