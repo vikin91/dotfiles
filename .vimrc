@@ -12,7 +12,7 @@ Plugin 'VundleVim/Vundle.vim'
 Plugin 'editorconfig/editorconfig-vim'
 " Support for git
 Plugin 'tpope/vim-fugitive'
-" Searching with :Ack 
+" Searching with :Ack
 Plugin 'mileszs/ack.vim'
 " Open files <C-p>
 Plugin 'kien/ctrlp.vim'
@@ -25,6 +25,7 @@ Plugin 'vim-syntastic/syntastic'
 " To get nice look-and-feel
 Plugin 'vim-airline/vim-airline'
 Plugin 'vim-airline/vim-airline-themes'
+Plugin 'altercation/vim-colors-solarized'
 " Makes rading and editing of md files nicer
 Plugin 'plasticboy/vim-markdown'
 " Sytax highligting specific to perl
@@ -138,4 +139,10 @@ let g:vim_markdown_frontmatter = 1
 let g:vim_markdown_toml_frontmatter = 1
 let g:vim_markdown_json_frontmatter = 1
 let g:vim_markdown_new_list_item_indent = 2
+
+" Airline config
+set encoding=utf-8
+let g:airline#extensions#tabline#enabled = 1
+" Enable afdter reconfiguring iTerm to use Powerline fonts
+let g:airline_powerline_fonts = 1
 
