@@ -128,6 +128,7 @@ set backspace=indent,eol,start
 
 " vim test on save
 nmap <silent> <leader>t :TestNearest<CR>
+nmap <silent> <leader>v :TestNearest -v<CR>
 nmap <silent> <leader>T :TestFile<CR>
 nmap <silent> <leader>a :TestSuite<CR>
 nmap <silent> <leader>l :TestLast<CR>
