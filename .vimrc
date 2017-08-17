@@ -147,3 +147,5 @@ let g:airline#extensions#tabline#enabled = 1
 " Enable afdter reconfiguring iTerm to use Powerline fonts
 let g:airline_powerline_fonts = 1
 
+" Mouse drag can resize splits
+set mouse=n
