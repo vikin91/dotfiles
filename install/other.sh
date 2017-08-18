@@ -10,16 +10,18 @@ export PERL_MM_USE_DEFAULT=1
 
 if [ ! "$(which perlbrew)" ]; then
   curl -L https://install.perlbrew.pl | bash
-  grep -q -F 'source ~/perl5/perlbrew/etc/bashrc' "~/.zshenv" || echo 'source ~/perl5/perlbrew/etc/bashrc' >> ~/.zshenv
+  grep -q -F 'source ~/perl5/perlbrew/etc/bashrc' "${HOME}/.zshenv" || echo 'source ~/perl5/perlbrew/etc/bashrc' >> ~/.zshenv
   source ~/.zshenv
 else
   echo "Perlbrew already installed, skipping."
 fi
 
 perlbrew init
-perlbrew install perl-5.22.3
-perlbrew switch perl-5.22.3
-sudo chown -R $(whoami) "${HOME}/perl5"
+STATUS=$(perlbrew install perl-5.22.3)
+if [ "$STATUS" = 0 ]; then
+  perlbrew switch perl-5.22.3
+  sudo chown -R "$(whoami)" "${HOME}/perl5"
+fi
 
 if [ ! -f "${HOME}perl5/perlbrew/bin/cpanm" ]; then
   perlbrew install-cpanm

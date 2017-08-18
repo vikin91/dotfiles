@@ -13,28 +13,38 @@ source "$DOTFILES_DIR/lib.sh"
 
 # Update dotfiles itself first
 
-if is-executable git -a -d "$DOTFILES_DIR/.git" ; then 
-	git --work-tree="$DOTFILES_DIR" --git-dir="$DOTFILES_DIR/.git" pull origin master; 
+if is-executable git -a -d "$DOTFILES_DIR/.git" ; then
+	git --work-tree="$DOTFILES_DIR" --git-dir="$DOTFILES_DIR/.git" pull origin master;
 fi
 
 # Vikin91 custom
 # Install zsh
 curl -L https://raw.github.com/robbyrussell/oh-my-zsh/master/tools/install.sh | sh
 # Enable zsh as default shell
-chsh -s /bin/zsh
+if [ "$SHELL" != '/bin/zsh' ];then
+  chsh -s /bin/zsh
+fi
 # Install vundle pkg manager for vim
-git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim
+if [ ! -f ~/.vim/bundle/Vundle.vim ]; then
+  git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim
+fi
 
 # Install .dotfiles by symlinking
 ln -sfv "$DOTFILES_DIR/.vimrc" ~
 ln -sfv "$DOTFILES_DIR/.editorconfig" ~
 ln -sfv "$DOTFILES_DIR/.perltidyrc" ~
 ln -sfv "$DOTFILES_DIR/.tidyallrc" ~
+cp "${HOME}/.zshrc" "${HOME}/.zshrc_bak_$(date +%d-%m-%Y_%H-%M-%S)"
+ln -sfv "$DOTFILES_DIR/.zshrc" ~
 # ln -sfv "$DOTFILES_DIR/git/.gitconfig" ~
 # ln -sfv "$DOTFILES_DIR/git/.gitignore_global" ~
 
+# TODO: Iterate using a for-loop
+# themes cannot be links
+cp "$DOTFILES/zsh-themes/lambda-mod.zsh-theme" ~/.oh-my-zsh/custom/themes/lambda/
+
 # Package managers & packages
 source "$DOTFILES_DIR/install/brew.sh"
-source "$DOTFILES_DIR/install/brew-cask.sh"
+# source "$DOTFILES_DIR/install/brew-cask.sh"
 source "$DOTFILES_DIR/install/other.sh"
 
