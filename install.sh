@@ -39,9 +39,9 @@ ln -sfv "$DOTFILES_DIR/.zshrc" ~
 # ln -sfv "$DOTFILES_DIR/git/.gitconfig" ~
 # ln -sfv "$DOTFILES_DIR/git/.gitignore_global" ~
 
-# TODO: Iterate using a for-loop
 # themes cannot be links
-cp "$DOTFILES/zsh-themes/lambda-mod.zsh-theme" ~/.oh-my-zsh/custom/themes/lambda/
+mkdir -p "${HOME}/.oh-my-zsh/custom/themes/lambda/"
+cp "$DOTFILES_DIR/zsh-themes/lambda-mod.zsh-theme" ~/.oh-my-zsh/custom/themes/lambda/
 
 # Package managers & packages
 source "$DOTFILES_DIR/install/brew.sh"
