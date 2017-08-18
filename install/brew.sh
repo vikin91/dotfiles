@@ -3,7 +3,9 @@ if ! is-macos -o ! is-executable ruby -o ! is-executable curl -o ! is-executable
   return
 fi
 
-ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
+if [ ! "$(which brew)" ]; then
+  ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
+fi
 
 brew update
 brew upgrade
@@ -34,9 +36,9 @@ apps=(
   wget
 )
 
-brew install "${apps[@]}"
- 
+HOMEBREW_NO_AUTO_UPDATE=1 brew install "${apps[@]}"
+
 # export DOTFILES_BREW_PREFIX_COREUTILS=`brew --prefix coreutils`
 # set-config "DOTFILES_BREW_PREFIX_COREUTILS" "$DOTFILES_BREW_PREFIX_COREUTILS" "$DOTFILES_CACHE"
-# 
+#
 # ln -sfv "$DOTFILES_DIR/etc/mackup/.mackup.cfg" ~

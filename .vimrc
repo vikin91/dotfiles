@@ -8,6 +8,7 @@ call vundle#begin()
 " :PluginSearch foo - searches for foo; append `!` to refresh local cache
 " :PluginClean      - confirms removal of unused plugins; append `!` to auto-approve removal
 Plugin 'VundleVim/Vundle.vim'
+Plugin 'SpellCheck'
 " Editorconfig
 Plugin 'editorconfig/editorconfig-vim'
 " Support for git
@@ -36,6 +37,7 @@ Plugin 'janko-m/vim-test'
 Plugin 'airblade/vim-gitgutter'
 " Make it like SublimeText Cmd+L - fp on variable, then <C-n>
 Plugin 'terryma/vim-multiple-cursors'
+Plugin 'pearofducks/ansible-vim'
 call vundle#end()            " required by vundle
 filetype plugin indent on    " required by vundle
 
