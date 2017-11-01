@@ -37,7 +37,8 @@ Plugin 'janko-m/vim-test'
 Plugin 'airblade/vim-gitgutter'
 " Make it like SublimeText Cmd+L - fp on variable, then <C-n>
 Plugin 'terryma/vim-multiple-cursors'
-Plugin 'pearofducks/ansible-vim'
+" This does not help - shifts lines when not requested
+" Plugin 'pearofducks/ansible-vim'
 call vundle#end()            " required by vundle
 filetype plugin indent on    " required by vundle
 
