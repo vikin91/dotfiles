@@ -47,6 +47,11 @@ filetype plugin indent on    " required by vundle
 
 syntax on
 
+" Highlight abandoned spaces at the end of the lines http://vim.wikia.com/wiki/Highlight_unwanted_spaces
+set hlsearch
+highlight ExtraWhitespace ctermbg=darkgreen guibg=lightgreen
+autocmd ColorScheme * highlight ExtraWhitespace ctermbg=red guibg=red
+
 " Give a shortcut key to NERD Tree
 map <F2> :NERDTreeToggle<CR>
 
