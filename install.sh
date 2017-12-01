@@ -1,7 +1,12 @@
 #!/usr/bin/env bash
 
-# Get current dir (so run this script from anywhere)
+PARAM=${1}
 
+function is_macos(){
+  test "$(uname)" = 'Darwin'
+}
+
+# Get current dir (so run this script from anywhere)
 export DOTFILES_DIR DOTFILES_CACHE DOTFILES_EXTRA_DIR
 DOTFILES_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 DOTFILES_CACHE="$DOTFILES_DIR/.cache.sh"
@@ -19,32 +24,40 @@ fi
 
 # Vikin91 custom
 # Install zsh
-curl -L https://raw.github.com/robbyrussell/oh-my-zsh/master/tools/install.sh | sh
+echo "Installing oh-my-zsh"
+curl -L -s https://raw.github.com/robbyrussell/oh-my-zsh/master/tools/install.sh | sh
 # Enable zsh as default shell
 if [ "$SHELL" != '/bin/zsh' ];then
+  echo "Changing shell to zsh"
   chsh -s /bin/zsh
 fi
 # Install vundle pkg manager for vim
-if [ ! -f ~/.vim/bundle/Vundle.vim ]; then
+if [ ! -f "$HOME/.vim/bundle/Vundle.vim" ]; then
+  echo "Installing Vundle for vim"
   git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim
 fi
 
 # Install .dotfiles by symlinking
 ln -sfv "$DOTFILES_DIR/.vimrc" ~
 ln -sfv "$DOTFILES_DIR/.editorconfig" ~
-ln -sfv "$DOTFILES_DIR/.perltidyrc" ~
-ln -sfv "$DOTFILES_DIR/.tidyallrc" ~
 cp "${HOME}/.zshrc" "${HOME}/.zshrc_bak_$(date +%d-%m-%Y_%H-%M-%S)"
 ln -sfv "$DOTFILES_DIR/.zshrc" ~
-# ln -sfv "$DOTFILES_DIR/git/.gitconfig" ~
-# ln -sfv "$DOTFILES_DIR/git/.gitignore_global" ~
 
 # themes cannot be links
 mkdir -p "${HOME}/.oh-my-zsh/custom/themes/lambda/"
 cp "$DOTFILES_DIR/zsh-themes/lambda-mod.zsh-theme" ~/.oh-my-zsh/custom/themes/lambda/
 
 # Package managers & packages
-source "$DOTFILES_DIR/install/brew.sh"
-# source "$DOTFILES_DIR/install/brew-cask.sh"
-source "$DOTFILES_DIR/install/other.sh"
+if is_macos; then
+  echo "Running brew installs"
+  source "$DOTFILES_DIR/install/brew.sh"
+  echo "Running brew-cask installs"
+  source "$DOTFILES_DIR/install/brew-cask.sh"
+fi
 
+if [ "$PARAM" = "perl" ]; then
+  echo "Running perl installs"
+  source "$DOTFILES_DIR/install/perl.sh"
+fi
+echo "Running other installs"
+source "$DOTFILES_DIR/install/other.sh"
