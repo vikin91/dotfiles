@@ -37,7 +37,8 @@ Plugin 'janko-m/vim-test'
 Plugin 'airblade/vim-gitgutter'
 " Make it like SublimeText Cmd+L - fp on variable, then <C-n>
 Plugin 'terryma/vim-multiple-cursors'
-Plugin 'pearofducks/ansible-vim'
+" This does not help - shifts lines when not requested
+" Plugin 'pearofducks/ansible-vim'
 call vundle#end()            " required by vundle
 filetype plugin indent on    " required by vundle
 
@@ -45,6 +46,11 @@ filetype plugin indent on    " required by vundle
 " call pathogen#helptags()
 
 syntax on
+
+" Highlight abandoned spaces at the end of the lines http://vim.wikia.com/wiki/Highlight_unwanted_spaces
+set hlsearch
+highlight ExtraWhitespace ctermbg=darkgreen guibg=lightgreen
+autocmd ColorScheme * highlight ExtraWhitespace ctermbg=red guibg=red
 
 " Give a shortcut key to NERD Tree
 map <F2> :NERDTreeToggle<CR>

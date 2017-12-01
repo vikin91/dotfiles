@@ -96,7 +96,7 @@ export LC_ALL=$LANG
 
 test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
 
-if [ -f "~/.plexus/.plexusrc.sh" ]; then
+if [ -f "${HOME}/.plexus/.plexusrc.sh" ]; then
   source ~/.plexus/.plexusrc.sh
 fi
 
