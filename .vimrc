@@ -115,7 +115,6 @@ vnoremap <silent> _t :!perltidy -q<Enter>
 " Run tidyall1
 noremap <silent> _ta :!tidyall -a -q <Enter>
 
-
 " Deparse obfuscated code
 nnoremap <silent> _d :.!perl -MO=Deparse 2>/dev/null<cr>
 vnoremap <silent> _d :!perl -MO=Deparse 2>/dev/null<cr>
@@ -128,8 +127,9 @@ colorscheme desert
 " Searchinf filed ctrlP
 set runtimepath^=~/.vim/bundle/ctrlp.vim
 " cycle through tabs
-nnoremap <C-l> gt
-nnoremap <C-h> gT
+noremap <C-l> gt
+noremap <C-h> gT
+" Configure iterm2 to use CMD+Backspace to cycle with <C-h>: Send hex Codes 0x1B 0x08
 
 " Noobs need backspace
 set backspace=indent,eol,start
@@ -156,4 +156,4 @@ let g:airline#extensions#tabline#enabled = 1
 let g:airline_powerline_fonts = 1
 
 " Mouse drag can resize splits
-set mouse=n
+" set mouse=n

@@ -11,7 +11,7 @@ export PERL_MM_USE_DEFAULT=1
 if [ ! "$(which perlbrew)" ]; then
   curl -L https://install.perlbrew.pl | bash
   grep -q -F 'source ~/perl5/perlbrew/etc/bashrc' "${HOME}/.zshenv" || echo 'source ~/perl5/perlbrew/etc/bashrc' >> ~/.zshenv
-  source ~/.zshenv
+  source "$HOME/.zshenv"
 else
   echo "Perlbrew already installed, skipping."
 fi
@@ -26,12 +26,11 @@ fi
 if [ ! -f "${HOME}perl5/perlbrew/bin/cpanm" ]; then
   perlbrew install-cpanm
   # Cpanm will install libs without root access to local path
-  cpanm --local-lib=~/perl5 local::lib && eval $(perl -I ~/perl5/lib/perl5/ -Mlocal::lib)
 else
   echo "Cpanm is already installed. Skipping"
 fi
 # Install essential perl libraries
 cpanm -nq Perl::Tidy Code::TidyAll
 
-ln -sfv "$DOTFILES_DIR/.tidyallrc" ~
-ln -sfv "$DOTFILES_DIR/.perltidyrc" ~
+ln -sfv "$DOTFILES_DIR/.tidyallrc" $HOME
+ln -sfv "$DOTFILES_DIR/.perltidyrc" $HOME
