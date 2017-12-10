@@ -18,6 +18,7 @@ apps=(
   colordiff
   coreutils
   ffmpeg
+  fzf
   git
   gnu-sed --with-default-names
   grep --with-default-names

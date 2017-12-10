@@ -17,6 +17,8 @@ Plugin 'tpope/vim-fugitive'
 Plugin 'mileszs/ack.vim'
 " Open files <C-p>
 Plugin 'kien/ctrlp.vim'
+" Fuzzy searcher
+Plugin 'junegunn/fzf'
 " Filemanager <F2>
 Plugin 'scrooloose/nerdtree'
 " Autocompletion?
@@ -76,6 +78,13 @@ autocmd FileType perl set showmatch
 
 " show line numbers
 autocmd FileType perl set number
+
+" fzf mappings
+set rtp+=/usr/local/bin/fzf
+nmap <C-p> <ESC>:FZF<CR>
+nmap ; :Buffers<CR>
+nmap <Leader>t :Files<CR>
+nmap <Leader>r :Tags<CR>
 
 " check perl code with :make
 autocmd FileType perl set makeprg=perl\ -c\ %\ $*
