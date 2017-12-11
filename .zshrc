@@ -95,5 +95,6 @@ export LANG=en_US.UTF-8
 export LC_ALL=$LANG
 
 test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
-
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+source ~/.plexus/.plexusrc.sh
+source $HOME/.plexus/plexusrc.sh
