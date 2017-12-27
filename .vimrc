@@ -2,6 +2,7 @@ set nocompatible              " be iMproved, required
 filetype off                  " required by vundle
 
 set rtp+=~/.vim/bundle/Vundle.vim
+set rtp+=/usr/local/bin/fzf
 call vundle#begin()
 " :PluginList       - lists configured plugins
 " :PluginInstall    - installs plugins; append `!` to update or just :PluginUpdate
@@ -15,10 +16,9 @@ Plugin 'editorconfig/editorconfig-vim'
 Plugin 'tpope/vim-fugitive'
 " Searching with :Ack
 Plugin 'mileszs/ack.vim'
-" Open files <C-p>
-Plugin 'kien/ctrlp.vim'
 " Fuzzy searcher
 Plugin 'junegunn/fzf'
+Plugin 'junegunn/fzf.vim'
 " Filemanager <F2>
 Plugin 'scrooloose/nerdtree'
 " Autocompletion?
@@ -43,9 +43,6 @@ Plugin 'terryma/vim-multiple-cursors'
 " Plugin 'pearofducks/ansible-vim'
 call vundle#end()            " required by vundle
 filetype plugin indent on    " required by vundle
-
-" call pathogen#infect()
-" call pathogen#helptags()
 
 syntax on
 
@@ -80,11 +77,10 @@ autocmd FileType perl set showmatch
 autocmd FileType perl set number
 
 " fzf mappings
-set rtp+=/usr/local/bin/fzf
 nmap <C-p> <ESC>:FZF<CR>
-nmap ; :Buffers<CR>
-nmap <Leader>t :Files<CR>
-nmap <Leader>r :Tags<CR>
+" nmap ; :Buffers<CR>
+" nmap <Leader>t :Files<CR>
+" nmap <Leader>r :Tags<CR>
 
 " check perl code with :make
 autocmd FileType perl set makeprg=perl\ -c\ %\ $*
