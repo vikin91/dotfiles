@@ -24,7 +24,7 @@ Plugin 'scrooloose/nerdtree'
 " Autocompletion?
 Plugin 'ervandew/supertab'
 " Universal syntax coloring
-Plugin 'vim-syntastic/syntastic'
+" Plugin 'vim-syntastic/syntastic'
 " To get nice look-and-feel
 Plugin 'vim-airline/vim-airline'
 Plugin 'vim-airline/vim-airline-themes'
@@ -39,8 +39,8 @@ Plugin 'janko-m/vim-test'
 Plugin 'airblade/vim-gitgutter'
 " Make it like SublimeText Cmd+L - fp on variable, then <C-n>
 Plugin 'terryma/vim-multiple-cursors'
-" This does not help - shifts lines when not requested
-" Plugin 'pearofducks/ansible-vim'
+" Linting for multiple languages
+Plugin 'w0rp/ale'
 call vundle#end()            " required by vundle
 filetype plugin indent on    " required by vundle
 
@@ -50,6 +50,9 @@ syntax on
 set hlsearch
 highlight ExtraWhitespace ctermbg=darkgreen guibg=lightgreen
 autocmd ColorScheme * highlight ExtraWhitespace ctermbg=red guibg=red
+
+" Allow to search for / without escaping
+command! -nargs=1 Ss let @/ = <q-args>
 
 " Give a shortcut key to NERD Tree
 map <F2> :NERDTreeToggle<CR>
@@ -95,8 +98,8 @@ vmap <tab> >gv
 vmap <s-tab> <gv
 
 " make tab in normal mode ident code
-nmap <tab> I<tab><esc>
-nmap <s-tab> ^i<bs><esc>
+" nmap <tab> I<tab><esc>
+" nmap <s-tab> ^i<bs><esc>
 
 " paste mode - this will avoid unexpected effects when you
 " cut or copy some text from one window and paste it in Vim.
@@ -121,8 +124,12 @@ vnoremap <silent> _t :!perltidy -q<Enter>
 noremap <silent> _ta :!tidyall -a -q <Enter>
 
 " Deparse obfuscated code
-nnoremap <silent> _d :.!perl -MO=Deparse 2>/dev/null<cr>
-vnoremap <silent> _d :!perl -MO=Deparse 2>/dev/null<cr>
+" nnoremap <silent> _d :.!perl -MO=Deparse 2>/dev/null<cr>
+" vnoremap <silent> _d :!perl -MO=Deparse 2>/dev/null<cr>
+
+" Cycle through buffers with C-BS
+nnoremap <Tab> :bnext<CR>
+nnoremap <S-Tab> :bprevious<CR>
 
 au BufRead,BufNewFile *.t setfiletype=perl
 :au FocusLost * :set number

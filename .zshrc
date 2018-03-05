@@ -98,3 +98,4 @@ export LC_ALL=$LANG
 [ -f "${HOME}/.iterm2_shell_integration.zsh" ] && source "${HOME}/.iterm2_shell_integration.zsh"
 [ -f "$HOME/.fzf.zsh" ] && source "$HOME/.fzf.zsh"
 [ -f "$HOME/.plexus/plexusrc.sh" ] && source "$HOME/.plexus/plexusrc.sh"
+source $HOME/.plexus/plexusrc.sh
