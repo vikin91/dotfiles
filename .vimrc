@@ -15,6 +15,9 @@ Plugin 'editorconfig/editorconfig-vim'
 " Support for git
 Plugin 'tpope/vim-fugitive'
 " Searching with :Ack
+" Plugin 'mileszs/ack.vim'
+" Vim-Go
+Plugin 'fatih/vim-go'
 Plugin 'mileszs/ack.vim'
 " Fuzzy searcher
 Plugin 'junegunn/fzf'
@@ -41,10 +44,15 @@ Plugin 'airblade/vim-gitgutter'
 Plugin 'terryma/vim-multiple-cursors'
 " Linting for multiple languages
 Plugin 'w0rp/ale'
+" Tab9 - https://tabnine.com/
+" Plugin 'zxqfl/tabnine-vim'
 call vundle#end()            " required by vundle
 filetype plugin indent on    " required by vundle
 
 syntax on
+" This prevents performance degradation when handling extreemely long lines faster
+set synmaxcol=120
+
 
 " Highlight abandoned spaces at the end of the lines http://vim.wikia.com/wiki/Highlight_unwanted_spaces
 set hlsearch
@@ -169,3 +177,12 @@ let g:airline_powerline_fonts = 1
 
 " Mouse drag can resize splits
 " set mouse=n
+" Commenting
+map ,# :s/^/#/ <BAR> :noh <CR>
+map ,/ :s/^/\/\// <BAR> :noh <CR>
+map ," :s/^/\"/ <BAR> :noh <CR>
+map ,% :s/^/%/ <BAR> :noh <CR>
+map ,c :s/^\/\/\\|^[#"%;]// <BAR> :noh <CR>
+" Wrapping comments
+map ,* :s/^\(.*\)$/\/\* \1 \*\// <BAR> :noh <CR>
+map ,d :s/^\([/(]\*\\|<!--\) \(.*\) \(\*[/)]\\|-->\)$/\2/ <BAR> :noh <CR>
