@@ -1,0 +1,16 @@
+[include]
+    path = ~/.gitconfig-work
+[github.com]
+  name = vikin91
+[init]
+  templatedir = ~/.git-templates
+[user]
+  useConfigOnly = true
+[alias]
+	tree = log --oneline --decorate --all --graph
+[core]
+	editor = vim
+[http]
+	sslVerify = false
+[pull]
+	rebase = true
