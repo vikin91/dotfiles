@@ -56,7 +56,7 @@ fpath=(~/.zsh/completion $fpath)
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(git osx kubectl docker docker-compose brew aws tig vault)
+plugins=(git osx kubectl docker docker-compose aws)
 
 source $ZSH/oh-my-zsh.sh
 
@@ -89,14 +89,35 @@ source $ZSH/oh-my-zsh.sh
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 export GOPATH="${HOME}/go"
-export PATH="/usr/local/sbin:$PATH"
-export PATH="$PATH:$GOPATH/bin"
+export PATH="/usr/local/sbin:/usr/local/bin:$PATH"
+export PATH="/usr/local/opt/go@1.9/bin:$PATH"
+# export PATH="$PATH:$GOPATH/bin"
 export LANG=en_US.UTF-8
 export LC_ALL=$LANG
+export ANSIBLE_NOCOWS=1
 
-test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
+function connect_vault() {
+    export VAULT_SKIP_VERIFY="true"
+    export VAULT_ADDR="https://lb.vault.ops.plxs.io"
+    export VAULT_CACERT="${HOME}/plexus/core/certificate_authority/certs/ca.cert.pem"
+    export VAULT_TOKEN=$(vapor vault-auth)
 
-if [ -f "${HOME}/.plexus/.plexusrc.sh" ]; then
-  source ~/.plexus/.plexusrc.sh
-fi
+    vault status
+}
 
+[ "$(which)" ] && export FZF_DEFAULT_COMMAND='ag --nocolor -g ""'
+# [ -f "${HOME}/.iterm2_shell_integration.zsh" ] && source "${HOME}/.iterm2_shell_integration.zsh"
+[ -f "$HOME/.fzf.zsh" ] && source "$HOME/.fzf.zsh"
+
+# Functions for proxy settings in SAP
+# [ -f "$HOME/.plexus/plexusrc.sh" ] && source "$HOME/.plexus/plexusrc.sh"
+
+# export PATH="$PATH:/Users/d069410/istio-1.0.2/bin"
+#
+. /usr/local/anaconda2/etc/profile.d/conda.sh
+
+# eval "$(rbenv init -)"
+# export PATH="/usr/local/opt/ruby/bin:$PATH"
+
+# autoload -U +X bashcompinit && bashcompinit
+# complete -o nospace -C /usr/local/bin/vault vault

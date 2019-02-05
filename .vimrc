@@ -2,6 +2,7 @@ set nocompatible              " be iMproved, required
 filetype off                  " required by vundle
 
 set rtp+=~/.vim/bundle/Vundle.vim
+set rtp+=/usr/local/bin/fzf
 call vundle#begin()
 " :PluginList       - lists configured plugins
 " :PluginInstall    - installs plugins; append `!` to update or just :PluginUpdate
@@ -14,15 +15,19 @@ Plugin 'editorconfig/editorconfig-vim'
 " Support for git
 Plugin 'tpope/vim-fugitive'
 " Searching with :Ack
+" Plugin 'mileszs/ack.vim'
+" Vim-Go
+Plugin 'fatih/vim-go'
 Plugin 'mileszs/ack.vim'
-" Open files <C-p>
-Plugin 'kien/ctrlp.vim'
+" Fuzzy searcher
+Plugin 'junegunn/fzf'
+Plugin 'junegunn/fzf.vim'
 " Filemanager <F2>
 Plugin 'scrooloose/nerdtree'
 " Autocompletion?
 Plugin 'ervandew/supertab'
 " Universal syntax coloring
-Plugin 'vim-syntastic/syntastic'
+" Plugin 'vim-syntastic/syntastic'
 " To get nice look-and-feel
 Plugin 'vim-airline/vim-airline'
 Plugin 'vim-airline/vim-airline-themes'
@@ -37,20 +42,25 @@ Plugin 'janko-m/vim-test'
 Plugin 'airblade/vim-gitgutter'
 " Make it like SublimeText Cmd+L - fp on variable, then <C-n>
 Plugin 'terryma/vim-multiple-cursors'
-" This does not help - shifts lines when not requested
-" Plugin 'pearofducks/ansible-vim'
+" Linting for multiple languages
+Plugin 'w0rp/ale'
+" Tab9 - https://tabnine.com/
+" Plugin 'zxqfl/tabnine-vim'
 call vundle#end()            " required by vundle
 filetype plugin indent on    " required by vundle
 
-" call pathogen#infect()
-" call pathogen#helptags()
-
 syntax on
+" This prevents performance degradation when handling extreemely long lines faster
+set synmaxcol=120
+
 
 " Highlight abandoned spaces at the end of the lines http://vim.wikia.com/wiki/Highlight_unwanted_spaces
 set hlsearch
 highlight ExtraWhitespace ctermbg=darkgreen guibg=lightgreen
 autocmd ColorScheme * highlight ExtraWhitespace ctermbg=red guibg=red
+
+" Allow to search for / without escaping
+command! -nargs=1 Ss let @/ = <q-args>
 
 " Give a shortcut key to NERD Tree
 map <F2> :NERDTreeToggle<CR>
@@ -77,6 +87,12 @@ autocmd FileType perl set showmatch
 " show line numbers
 autocmd FileType perl set number
 
+" fzf mappings
+nmap <C-p> <ESC>:FZF<CR>
+" nmap ; :Buffers<CR>
+" nmap <Leader>t :Files<CR>
+" nmap <Leader>r :Tags<CR>
+
 " check perl code with :make
 autocmd FileType perl set makeprg=perl\ -c\ %\ $*
 autocmd FileType perl set errorformat=%f:%l:%m
@@ -90,16 +106,12 @@ vmap <tab> >gv
 vmap <s-tab> <gv
 
 " make tab in normal mode ident code
-nmap <tab> I<tab><esc>
-nmap <s-tab> ^i<bs><esc>
+" nmap <tab> I<tab><esc>
+" nmap <s-tab> ^i<bs><esc>
 
 " paste mode - this will avoid unexpected effects when you
 " cut or copy some text from one window and paste it in Vim.
 set pastetoggle=<F11>
-
-" comment/uncomment blocks of code (in vmode)
-vmap _c :s/^/#/gi<Enter>
-vmap _C :s/^#//gi<Enter>
 
 " my perl includes pod
 let perl_include_pod = 1
@@ -115,10 +127,13 @@ vnoremap <silent> _t :!perltidy -q<Enter>
 " Run tidyall1
 noremap <silent> _ta :!tidyall -a -q <Enter>
 
-
 " Deparse obfuscated code
-nnoremap <silent> _d :.!perl -MO=Deparse 2>/dev/null<cr>
-vnoremap <silent> _d :!perl -MO=Deparse 2>/dev/null<cr>
+" nnoremap <silent> _d :.!perl -MO=Deparse 2>/dev/null<cr>
+" vnoremap <silent> _d :!perl -MO=Deparse 2>/dev/null<cr>
+
+" Cycle through buffers with C-BS
+nnoremap <Tab> :bnext<CR>
+nnoremap <S-Tab> :bprevious<CR>
 
 au BufRead,BufNewFile *.t setfiletype=perl
 :au FocusLost * :set number
@@ -128,8 +143,9 @@ colorscheme desert
 " Searchinf filed ctrlP
 set runtimepath^=~/.vim/bundle/ctrlp.vim
 " cycle through tabs
-nnoremap <C-l> gt
-nnoremap <C-h> gT
+noremap <C-l> gt
+noremap <C-h> gT
+" Configure iterm2 to use CMD+Backspace to cycle with <C-h>: Send hex Codes 0x1B 0x08
 
 " Noobs need backspace
 set backspace=indent,eol,start
@@ -156,4 +172,18 @@ let g:airline#extensions#tabline#enabled = 1
 let g:airline_powerline_fonts = 1
 
 " Mouse drag can resize splits
-set mouse=n
+" set mouse=n
+"
+" comment/uncomment blocks of code (in vmode)
+vmap _c :s/^/#/gi<Enter>
+vmap _C :s/^#//gi<Enter>
+
+" Commenting
+map ,# :s/^/#/ <BAR> :noh <CR>
+map ,/ :s/^/\/\// <BAR> :noh <CR>
+map ," :s/^/\"/ <BAR> :noh <CR>
+map ,% :s/^/%/ <BAR> :noh <CR>
+map ,c :s/^\/\/\\|^[#"%;]// <BAR> :noh <CR>
+" Wrapping comments
+map ,* :s/^\(.*\)$/\/\* \1 \*\// <BAR> :noh <CR>
+map ,d :s/^\([/(]\*\\|<!--\) \(.*\) \(\*[/)]\\|-->\)$/\2/ <BAR> :noh <CR>
