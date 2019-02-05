@@ -2,6 +2,7 @@
     path = ~/.gitconfig-work
 [github.com]
   name = vikin91
+  email = vikin91@users.noreply.github.com
 [init]
   templatedir = ~/.git-templates
 [user]

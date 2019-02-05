@@ -14,8 +14,10 @@ services=(
 set_local_user_config() {
     local service="${1}"
     local config="${2}"
-    local service_config="$( git config --get ${service}.${config} )"
-    local local_config="$( git config --get --local user.${config} )"
+    local service_config
+    service_config="$( git config --get "${service}.${config}" )"
+    local local_config
+    local_config="$( git config --get --local "user.${config}" )"
 
     if [[ "${local_config}" != "${service_config}" ]]; then
         git config --local "user.${config}" "${service_config}"
@@ -27,10 +29,11 @@ set_local_user_config() {
 # array the user name and email will remain unset and the
 # user.useConfigOnly = true setting in .gitconfig will prompt for those
 # credentials and prevent commits until they are defined
-for s in "${services[@]}"; do
-    if [[ "${remote_url}" =~ "${s}" ]]; then
-        set_local_user_config "${s}" 'name'
-        set_local_user_config "${s}" 'email'
+set +x
+for GITHUB_URL in "${services[@]}"; do
+    if [[ "${remote_url}" =~ ${GITHUB_URL} ]]; then
+        set_local_user_config "${GITHUB_URL}" 'name'
+        set_local_user_config "${GITHUB_URL}" 'email'
         break
     fi
 done
