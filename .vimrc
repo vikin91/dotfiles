@@ -113,10 +113,6 @@ vmap <s-tab> <gv
 " cut or copy some text from one window and paste it in Vim.
 set pastetoggle=<F11>
 
-" comment/uncomment blocks of code (in vmode)
-vmap _c :s/^/#/gi<Enter>
-vmap _C :s/^#//gi<Enter>
-
 " my perl includes pod
 let perl_include_pod = 1
 
@@ -177,6 +173,11 @@ let g:airline_powerline_fonts = 1
 
 " Mouse drag can resize splits
 " set mouse=n
+"
+" comment/uncomment blocks of code (in vmode)
+vmap _c :s/^/#/gi<Enter>
+vmap _C :s/^#//gi<Enter>
+
 " Commenting
 map ,# :s/^/#/ <BAR> :noh <CR>
 map ,/ :s/^/\/\// <BAR> :noh <CR>
