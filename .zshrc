@@ -114,7 +114,7 @@ function connect_vault() {
 
 # export PATH="$PATH:/Users/d069410/istio-1.0.2/bin"
 #
-. /usr/local/anaconda2/etc/profile.d/conda.sh
+[ -f /usr/local/anaconda2/etc/profile.d/conda.sh ] && . /usr/local/anaconda2/etc/profile.d/conda.sh
 
 # eval "$(rbenv init -)"
 # export PATH="/usr/local/opt/ruby/bin:$PATH"
