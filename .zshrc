@@ -121,3 +121,5 @@ function connect_vault() {
 
 # autoload -U +X bashcompinit && bashcompinit
 # complete -o nospace -C /usr/local/bin/vault vault
+
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh

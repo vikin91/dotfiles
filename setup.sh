@@ -33,6 +33,18 @@ function main(){
   shall_install_brew && install_brew
   shall_install_perl && install_perl
 
+
+  ### SANDBOX - TO REFACTOR
+
+  # Install bat - colorful version of cat
+  wget -q "https://github.com/sharkdp/bat/releases/download/v0.9.0/bat-musl_0.9.0_amd64.deb"
+  sudo dpkg -i bat-musl_0.9.0_amd64.deb
+
+  # Install fzf
+  git clone --depth 1 "https://github.com/junegunn/fzf.git" "$HOME/.fzf"
+  "${HOME}/.fzf/install --all"
+  source "${HOME}/.zshrc"
+
 # echo "Running other installs"
 # source "$DOTFILES_DIR/install/other.sh"
 }
