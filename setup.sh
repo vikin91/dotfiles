@@ -37,13 +37,20 @@ function main(){
   ### SANDBOX - TO REFACTOR
 
   # Install bat - colorful version of cat
-  wget -q "https://github.com/sharkdp/bat/releases/download/v0.9.0/bat-musl_0.9.0_amd64.deb"
-  sudo dpkg -i bat-musl_0.9.0_amd64.deb
+  if is_linux; then
+    command -v wget && wget -q "https://github.com/sharkdp/bat/releases/download/v0.9.0/bat-musl_0.9.0_amd64.deb"
+    command -v curl && curl --silent --show-error "https://github.com/sharkdp/bat/releases/download/v0.9.0/bat-musl_0.9.0_amd64.deb" --output "bat-musl_0.9.0_amd64.deb"
+    sudo dpkg -i bat-musl_0.9.0_amd64.deb
+  fi
 
   # Install fzf
-  git clone --depth 1 "https://github.com/junegunn/fzf.git" "$HOME/.fzf"
-  "${HOME}/.fzf/install --all"
-  source "${HOME}/.zshrc"
+  if [ ! "$(command -v fzf)" ]; then
+    git clone --depth 1 "https://github.com/junegunn/fzf.git" "$HOME/.fzf"
+    sleep 1
+    [ -f "${HOME}/.fzf/install" ] && "${HOME}/.fzf/install" --all
+    # shellcheck source=~/.zshrc
+    source "${HOME}/.zshrc"
+  fi
 
 # echo "Running other installs"
 # source "$DOTFILES_DIR/install/other.sh"
@@ -101,6 +108,10 @@ function is_macos(){
   test "$(uname)" = 'Darwin'
 }
 
+function is_linux(){
+  test "$(uname)" = 'Linux'
+}
+
 function backup_dotfile(){
   if [ -f "${HOME}/${1}" ]; then
     cp "${HOME}/${1}" "${BACKUP_DEST}/${1}_${BACKUP_POSTFIX}"
@@ -113,22 +124,5 @@ function backup_and_link_dotfile(){
   backup_dotfile "${1}"
   ln -svf "$DOTFILES_DIR/${1}" "${HOME}"
 }
-
-
-# # Package managers & packages
-# if is_macos; then
-#   echo "Running brew installs"
-#   source "$DOTFILES_DIR/install/brew.sh"
-#   echo "Running brew-cask installs"
-#   source "$DOTFILES_DIR/install/brew-cask.sh"
-# fi
-#
-# if [ "$PARAM" = "perl" ]; then
-#   echo "Running perl installs"
-#   source "$DOTFILES_DIR/install/perl.sh"
-# fi
-# echo "Running other installs"
-# source "$DOTFILES_DIR/install/other.sh"
-
 
 main "$@"
