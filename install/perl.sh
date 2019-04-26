@@ -10,7 +10,7 @@ export PERL_MM_USE_DEFAULT=1
 
 if [ ! "$(which perlbrew)" ]; then
   curl -L https://install.perlbrew.pl | bash
-  grep -q -F 'source ~/perl5/perlbrew/etc/bashrc' "${HOME}/.zshenv" || echo 'source ~/perl5/perlbrew/etc/bashrc' >> ~/.zshenv
+  grep -q -F 'source ~/perl5/perlbrew/etc/bashrc' "${HOME}/.zshenv" || echo 'source ~/perl5/perlbrew/etc/bashrc' >> ~"${HOME}/.zshenv"
   source "$HOME/.zshenv"
 else
   echo "Perlbrew already installed, skipping."

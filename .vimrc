@@ -98,6 +98,13 @@ autocmd FileType perl set makeprg=perl\ -c\ %\ $*
 autocmd FileType perl set errorformat=%f:%l:%m
 autocmd FileType perl set autowrite
 
+" disable scaning included files during autocompletion for perl i
+" reason: scanning takes too long
+augroup PerlSettings
+    autocmd!
+    autocmd FileType perl setlocal complete-=i
+augroup END
+
 " dont use Q for Ex mode
 map Q :q
 
@@ -141,7 +148,7 @@ au BufRead,BufNewFile *.t setfiletype=perl
 colorscheme desert
 
 " Searchinf filed ctrlP
-set runtimepath^=~/.vim/bundle/ctrlp.vim
+" set runtimepath^=~/.vim/bundle/ctrlp.vim
 " cycle through tabs
 noremap <C-l> gt
 noremap <C-h> gT
@@ -173,10 +180,6 @@ let g:airline_powerline_fonts = 1
 
 " Mouse drag can resize splits
 " set mouse=n
-"
-" comment/uncomment blocks of code (in vmode)
-vmap _c :s/^/#/gi<Enter>
-vmap _C :s/^#//gi<Enter>
 
 " Commenting
 map ,# :s/^/#/ <BAR> :noh <CR>
