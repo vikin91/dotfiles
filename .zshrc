@@ -90,13 +90,23 @@ source $ZSH/oh-my-zsh.sh
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 export GOPATH="${HOME}/go"
 export PATH="/usr/local/sbin:/usr/local/bin:$PATH"
+# Brew mysql
+export PATH="/usr/local/opt/mysql@5.7/bin:$PATH"
 # Add perltidy, tidyall
 export PATH="$PATH:$HOME/perl5/bin/"
-
 export PATH="$PATH:$GOPATH/bin"
 export LANG=en_US.UTF-8
 export LC_ALL=$LANG
 export ANSIBLE_NOCOWS=1
+
+function countLoc(){
+  local DEST
+  [ "$(command -v cloc)" ] && \
+    DEST="$(mktemp -d)" && \
+    [ -d "$DEST" ] && rm -f "${DEST}/*" && \
+    git clone --depth 1 "$1" "$DEST" && \
+    cloc "$DEST"
+}
 
 [ "$(which)" ] && export FZF_DEFAULT_COMMAND='ag --nocolor -g ""'
 [ -f "$HOME/.fzf.zsh" ] && source "$HOME/.fzf.zsh"
