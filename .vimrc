@@ -142,4 +142,4 @@ map ,* :s/^\(.*\)$/\/\* \1 \*\// <BAR> :noh <CR>
 map ,d :s/^\([/(]\*\\|<!--\) \(.*\) \(\*[/)]\\|-->\)$/\2/ <BAR> :noh <CR>
 
 """"""" PERL
-source .vimrc.perl
+source $HOME/.vimrc.perl
