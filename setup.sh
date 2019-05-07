@@ -25,6 +25,7 @@ function main(){
 
   # Install .dotfiles by symlinking
   backup_and_link_dotfile ".vimrc"
+  backup_and_link_dotfile ".vimrc.perl"
   backup_and_link_dotfile ".editorconfig"
   backup_and_link_dotfile ".gitconfig"
   backup_and_link_dotfile ".git-templates"
