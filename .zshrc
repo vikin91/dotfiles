@@ -94,6 +94,16 @@ export PATH="/usr/local/sbin:/usr/local/bin:$PATH"
 export PATH="/usr/local/opt/mysql@5.7/bin:$PATH"
 # Add perltidy, tidyall
 export PATH="$PATH:$HOME/perl5/bin/"
+
+# For mysql installation for brew
+export PATH="/usr/local/opt/mysql@5.7/bin:$PATH"
+# For compilers to find mysql@5.7 you may need to set:
+export LDFLAGS="-L/usr/local/opt/mysql@5.7/lib"
+export CPPFLAGS="-I/usr/local/opt/mysql@5.7/include"
+
+# For pkg-config to find mysql@5.7 you may need to set:
+export PKG_CONFIG_PATH="/usr/local/opt/mysql@5.7/lib/pkgconfig"
+
 export PATH="$PATH:$GOPATH/bin"
 export LANG=en_US.UTF-8
 export LC_ALL=$LANG
