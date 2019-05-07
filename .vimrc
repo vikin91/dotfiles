@@ -53,6 +53,14 @@ syntax on
 " This prevents performance degradation when handling extreemely long lines faster
 set synmaxcol=120
 
+" Enable spellcheck for particular types of files
+setlocal spell spelllang=en_us
+autocmd BufRead,BufNewFile *.md setlocal spell
+" Auto spell-check for git commit messages
+autocmd FileType gitcommit setlocal spell
+" Autocompletion - press CTRL-N or CTRL-P in insert-mode to complete the word we’re typing!
+set complete+=kspell
+
 
 " Highlight abandoned spaces at the end of the lines http://vim.wikia.com/wiki/Highlight_unwanted_spaces
 set hlsearch
