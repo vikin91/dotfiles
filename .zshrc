@@ -10,7 +10,10 @@ export ZSH=$HOME/.oh-my-zsh
 # ZSH_THEME="robbyrussell"
 # ZSH_THEME="avit"
 # git clone https://github.com/halfo/lambda-mod-zsh-theme.git  ~/.oh-my-zsh/custom/themes/lambda
-ZSH_THEME="lambda/lambda-mod"
+# ZSH_THEME="lambda/lambda-mod"
+# Source of this info: https://gist.github.com/kevin-smets/8568070
+ZSH_THEME="powerlevel10k/powerlevel10k"
+POWERLEVEL9K_MODE="awesome-patched"
 
 # Uncomment the following line to use case-sensitive completion.
 # CASE_SENSITIVE="true"
@@ -121,3 +124,10 @@ function countLoc(){
 [ "$(which)" ] && export FZF_DEFAULT_COMMAND='ag --nocolor -g ""'
 [ -f "$HOME/.fzf.zsh" ] && source "$HOME/.fzf.zsh"
 [ -f /usr/local/anaconda2/etc/profile.d/conda.sh ] && . /usr/local/anaconda2/etc/profile.d/conda.sh
+source /usr/local/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+
+# Add visual studio code to PATH
+export PATH="$PATH:/Applications/Visual Studio Code.app/Contents/Resources/app/bin"
+
+# To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
+[[ -f ~/.p10k.zsh ]] && source ~/.p10k.zsh
