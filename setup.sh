@@ -16,12 +16,13 @@ source "$DOTFILES_DIR/lib.sh"
 
 function main(){
   # Update dotfiles itself first
-  if is-executable git -a -d "$DOTFILES_DIR/.git" ; then
-    git --work-tree="$DOTFILES_DIR" --git-dir="$DOTFILES_DIR/.git" pull origin master;
-  fi
+  # if is-executable git -a -d "$DOTFILES_DIR/.git" ; then
+  #   git --work-tree="$DOTFILES_DIR" --git-dir="$DOTFILES_DIR/.git" pull origin master;
+  # fi
 
   install_and_enable_zsh
   install_vundle
+  configure_iterm
 
   # Install .dotfiles by symlinking
   backup_and_link_dotfile ".vimrc"
@@ -54,6 +55,16 @@ function main(){
 
 # echo "Running other installs"
 # source "$DOTFILES_DIR/install/other.sh"
+}
+
+function configure_iterm(){
+  is_macos || return 1
+  # Copy the fonts
+  cp -f "$DOTFILES_DIR/fonts/*" "$HOME/Library/Fonts/"
+  # Specify the preferences directory
+  defaults write com.googlecode.iterm2.plist PrefsCustomFolder -string "$DOTFILES_DIR"
+  # Tell iTerm2 to use the custom preferences in the directory
+  defaults write com.googlecode.iterm2.plist LoadPrefsFromCustomFolder -bool true
 }
 
 function shall_install_brew(){
