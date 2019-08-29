@@ -188,6 +188,8 @@ let g:airline_powerline_fonts = 1
 
 " Mouse drag can resize splits
 " set mouse=n
+" Mouse for scrolling
+set mouse=a
 
 " Commenting
 map ,# :s/^/#/ <BAR> :noh <CR>
