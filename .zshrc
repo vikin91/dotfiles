@@ -120,5 +120,5 @@ export PATH="$PATH:/Applications/Visual Studio Code.app/Contents/Resources/app/b
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ -f ~/.p10k.zsh ]] && source ~/.p10k.zsh
 
-[ -f /usr/local/anaconda2/etc/profile.d/conda.sh ] && . /usr/local/anaconda2/etc/profile.d/conda.sh
-source /usr/local/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+[ -f /usr/local/anaconda2/etc/profile.d/conda.sh ] && source /usr/local/anaconda2/etc/profile.d/conda.sh
+[ -f /usr/local/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh ] && source /usr/local/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh

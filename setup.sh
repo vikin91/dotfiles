@@ -24,6 +24,9 @@ function main(){
   install_vundle
   configure_iterm
 
+  # Install ZSH theme
+  git clone "https://github.com/romkatv/powerlevel10k.git" "$ZSH_CUSTOM/themes/powerlevel10k"
+
   # Install .dotfiles by symlinking
   backup_and_link_dotfile ".vimrc"
   backup_and_link_dotfile ".editorconfig"
