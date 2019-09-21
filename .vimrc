@@ -134,17 +134,16 @@ let perl_include_pod = 1
 " syntax color complex things like @{${"foo"}}
 let perl_extended_vars = 1
 
+"define :Tidy command to run perltidy on visual selection || entire buffer"
+command Tidy !perltidy -q
+
 " Tidy selected lines (or entire file) with _t:
 nnoremap <F5> :%!perltidy -q<Enter>
-nnoremap <silent> _t :%!perltidy -q<Enter>
-vnoremap <silent> _t :!perltidy -q<Enter>
+nnoremap <silent> <leader>p :%!perltidy -q<Enter>
+vnoremap <silent> <leader>p :!perltidy -q<Enter>
 
-" Run tidyall1
+" Run tidyall
 noremap <silent> _ta :!tidyall -a -q <Enter>
-
-" Deparse obfuscated code
-" nnoremap <silent> _d :.!perl -MO=Deparse 2>/dev/null<cr>
-" vnoremap <silent> _d :!perl -MO=Deparse 2>/dev/null<cr>
 
 " Cycle through buffers with C-BS
 nnoremap <Tab> :bnext<CR>

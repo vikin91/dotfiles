@@ -1,6 +1,3 @@
-# If you come from bash you might have to change your $PATH.
-# export PATH=$HOME/bin:/usr/local/bin:$PATH
-
 # Path to your oh-my-zsh installation.
 export ZSH=$HOME/.oh-my-zsh
 
@@ -14,6 +11,8 @@ export ZSH=$HOME/.oh-my-zsh
 # Source of this info: https://gist.github.com/kevin-smets/8568070
 ZSH_THEME="powerlevel10k/powerlevel10k"
 POWERLEVEL9K_MODE="awesome-patched"
+# ZSH_THEME="lambda/lambda-mod"
+
 
 # Uncomment the following line to use case-sensitive completion.
 # CASE_SENSITIVE="true"
@@ -54,22 +53,11 @@ DISABLE_AUTO_TITLE="true"
 # ZSH_CUSTOM=/path/to/new-custom-folder
 
 fpath=(~/.zsh/completion $fpath)
-
-# Which plugins would you like to load? (plugins can be found in ~/.oh-my-zsh/plugins/*)
-# Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
-# Example format: plugins=(rails git textmate ruby lighthouse)
-# Add wisely, as too many plugins slow down shell startup.
-plugins=(git osx kubectl docker docker-compose aws)
-
+plugins=(git osx docker docker-compose)
 source $ZSH/oh-my-zsh.sh
 
 # User configuration
-
-# export MANPATH="/usr/local/man:$MANPATH"
-
-# You may need to manually set your language environment
-# export LANG=en_US.UTF-8
-
+#
 # Preferred editor for local and remote sessions
 # if [[ -n $SSH_CONNECTION ]]; then
 #   export EDITOR='vim'
@@ -121,13 +109,16 @@ function countLoc(){
     cloc "$DEST"
 }
 
+if which plenv > /dev/null; then eval "$(plenv init - zsh)"; fi
+
 [ "$(which)" ] && export FZF_DEFAULT_COMMAND='ag --nocolor -g ""'
 [ -f "$HOME/.fzf.zsh" ] && source "$HOME/.fzf.zsh"
-[ -f /usr/local/anaconda2/etc/profile.d/conda.sh ] && . /usr/local/anaconda2/etc/profile.d/conda.sh
-source /usr/local/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 
 # Add visual studio code to PATH
 export PATH="$PATH:/Applications/Visual Studio Code.app/Contents/Resources/app/bin"
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ -f ~/.p10k.zsh ]] && source ~/.p10k.zsh
+
+[ -f /usr/local/anaconda2/etc/profile.d/conda.sh ] && . /usr/local/anaconda2/etc/profile.d/conda.sh
+source /usr/local/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh

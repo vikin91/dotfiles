@@ -10,7 +10,7 @@ export PERL_MM_USE_DEFAULT=1
 
 if [ ! "$(command -v perlbrew)" ]; then
   curl -L https://install.perlbrew.pl | bash
-  grep -q -F 'source ~/perl5/perlbrew/etc/bashrc' "${HOME}/.zshenv" || echo 'source ~/perl5/perlbrew/etc/bashrc' >> ~"${HOME}/.zshenv"
+  grep -q -F 'source $HOME/perl5/perlbrew/etc/bashrc' "${HOME}/.zshenv" || echo 'source $HOME/perl5/perlbrew/etc/bashrc' >> ~"${HOME}/.zshenv"
   source "$HOME/.zshenv"
 else
   echo "Perlbrew already installed, skipping."
@@ -31,6 +31,10 @@ else
 fi
 # Install essential perl libraries
 cpanm -nq Perl::Tidy Code::TidyAll
+
+# Ensure clean installation of perltidy
+brew install perltidy
+brew link --overwrite perltidy
 
 ln -sfv "$DOTFILES_DIR/.tidyallrc" "$HOME"
 ln -sfv "$DOTFILES_DIR/.perltidyrc" "$HOME"
