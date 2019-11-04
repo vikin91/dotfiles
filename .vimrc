@@ -187,8 +187,9 @@ let g:airline_powerline_fonts = 1
 
 " Mouse drag can resize splits
 " set mouse=n
-" Mouse for scrolling
-set mouse=a
+" Mouse for scrolling =a
+" Mouse setting to enable copying from iterm2 =
+set mouse=
 
 " Commenting
 map ,# :s/^/#/ <BAR> :noh <CR>

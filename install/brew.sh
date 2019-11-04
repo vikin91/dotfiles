@@ -3,7 +3,7 @@ if ! is-macos -o ! is-executable ruby -o ! is-executable curl -o ! is-executable
   return
 fi
 
-if [ ! "$(which brew)" ]; then
+if [ ! "$(command -v brew)" ]; then
   ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
 fi
 
@@ -14,9 +14,11 @@ brew upgrade
 
 apps=(
   ack
+  bat
   bash-completion2
   colordiff
   coreutils
+  dust
   ffmpeg
   fzf
   git

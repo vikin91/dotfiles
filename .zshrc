@@ -53,7 +53,7 @@ DISABLE_AUTO_TITLE="true"
 # ZSH_CUSTOM=/path/to/new-custom-folder
 
 fpath=(~/.zsh/completion $fpath)
-plugins=(git osx docker docker-compose)
+plugins=(git osx docker docker-compose kubectl)
 source $ZSH/oh-my-zsh.sh
 
 # User configuration
@@ -79,6 +79,12 @@ source $ZSH/oh-my-zsh.sh
 # Example aliases
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
+
+alias k=kubectl
+alias livetree="watch --color -n1 git log --oneline --decorate --all --graph --color=always"
+
+
+
 export GOPATH="${HOME}/go"
 export PATH="/usr/local/sbin:/usr/local/bin:$PATH"
 # Brew mysql
@@ -121,3 +127,9 @@ export PATH="$PATH:/Applications/Visual Studio Code.app/Contents/Resources/app/b
 [ -f ~/.p10k.zsh ] && source "$HOME/.p10k.zsh"
 [ -f /usr/local/anaconda2/etc/profile.d/conda.sh ] && source /usr/local/anaconda2/etc/profile.d/conda.sh
 [ -f /usr/local/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh ] && source /usr/local/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+
+# tells shell to not store in history such commands that start with space (and skip duplicates)
+HISTCONTROL=ignoreboth
+
+test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
+
