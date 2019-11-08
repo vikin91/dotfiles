@@ -25,7 +25,8 @@ function main(){
   configure_iterm
 
   # Install ZSH theme
-  git clone "https://github.com/romkatv/powerlevel10k.git" "$ZSH_CUSTOM/themes/powerlevel10k"
+  [ -z "$ZSH_CUSTOM" ] && export ZSH_CUSTOM="${HOME}/.oh-my-zsh/custom"
+  [ -n "$ZSH_CUSTOM" ] && git clone "https://github.com/romkatv/powerlevel10k.git" "$ZSH_CUSTOM/themes/powerlevel10k"
 
   # Install .dotfiles by symlinking
   backup_and_link_dotfile ".vimrc"
@@ -43,9 +44,11 @@ function main(){
 
   # Install bat - colorful version of cat
   if is_linux; then
-    command -v wget && wget -q "https://github.com/sharkdp/bat/releases/download/v0.9.0/bat-musl_0.9.0_amd64.deb"
-    command -v curl && curl --silent --show-error "https://github.com/sharkdp/bat/releases/download/v0.9.0/bat-musl_0.9.0_amd64.deb" --output "bat-musl_0.9.0_amd64.deb"
-    sudo dpkg -i bat-musl_0.9.0_amd64.deb
+    local _URL
+    _URL="https://github.com/sharkdp/bat/releases/download/v0.12.1/bat-musl_0.12.1_amd64.deb"
+    command -v wget && wget --quiet "${_URL}" --output-document="bat.deb"
+    command -v curl && curl --location --silent --show-error "${_URL}" --output "bat.deb"
+    [ -f bat.deb ] && sudo dpkg -i bat.deb
   fi
 
   # Install fzf

@@ -84,7 +84,6 @@ alias k=kubectl
 alias livetree="watch --color -n1 git log --oneline --decorate --all --graph --color=always"
 
 
-
 export GOPATH="${HOME}/go"
 export PATH="/usr/local/sbin:/usr/local/bin:$PATH"
 # Brew mysql
@@ -132,4 +131,3 @@ export PATH="$PATH:/Applications/Visual Studio Code.app/Contents/Resources/app/b
 HISTCONTROL=ignoreboth
 
 test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
-
