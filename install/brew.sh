@@ -16,6 +16,7 @@ apps=(
   ack
   bat
   bash-completion2
+  broot
   colordiff
   coreutils
   dust

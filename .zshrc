@@ -131,3 +131,5 @@ export PATH="$PATH:/Applications/Visual Studio Code.app/Contents/Resources/app/b
 HISTCONTROL=ignoreboth
 
 test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
+
+source "${HOME}/Library/Preferences/org.dystroy.broot/launcher/bash/br"
