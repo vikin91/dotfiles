@@ -46,6 +46,8 @@ Plugin 'terryma/vim-multiple-cursors'
 Plugin 'w0rp/ale'
 " Tab9 - https://tabnine.com/
 " Plugin 'zxqfl/tabnine-vim'
+" Plugin to colorize ngix config files
+Plugin 'chr4/nginx.vim'
 call vundle#end()            " required by vundle
 filetype plugin indent on    " required by vundle
 
