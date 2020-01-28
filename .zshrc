@@ -132,4 +132,4 @@ HISTCONTROL=ignoreboth
 
 test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
 
-source "${HOME}/Library/Preferences/org.dystroy.broot/launcher/bash/br"
+test -e "${HOME}/Library/Preferences/org.dystroy.broot/launcher/bash/br" && source "${HOME}/Library/Preferences/org.dystroy.broot/launcher/bash/br"
