@@ -17,3 +17,5 @@
 	sslVerify = false
 [pull]
 	rebase = true
+[credential]
+	helper = cache
