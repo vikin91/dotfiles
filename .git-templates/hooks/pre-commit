@@ -8,7 +8,6 @@ shopt -s nocasematch
 remote_url="$( git config --get --local remote.origin.url )"
 services=(
     'github.com'
-    'github.wdf.sap.corp'
 )
 
 set_local_user_config() {

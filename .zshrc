@@ -70,6 +70,10 @@ source $ZSH/oh-my-zsh.sh
 
 # ssh
 # export SSH_KEY_PATH="~/.ssh/rsa_id"
+#
+# GPG TTY setup
+GPG_TTY=$(tty)
+export GPG_TTY
 
 # Set personal aliases, overriding those provided by oh-my-zsh libs,
 # plugins, and themes. Aliases can be placed here, though oh-my-zsh
@@ -81,18 +85,29 @@ source $ZSH/oh-my-zsh.sh
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 
 alias k=kubectl
+alias kdev='kubectl -n rp-dev'
+alias kst='kubectl -n rp-staging'
+alias kprod='kubectl -n rp-prod'
+alias kcds='kubectl -n cds'
+alias kcov='kubectl -n cov'
 alias livetree="watch --color -n1 git log --oneline --decorate --all --graph --color=always"
+alias gitmasterprune="git checkout master && git pull && git fetch --prune"
 
+function gitkillbranches(){
+    git branch -r | awk '{print $1}' | egrep -v -f /dev/fd/0 <(git branch -vv | grep origin) | awk '{print $1}' | xargs git branch -D
+}
 
 export GOPATH="${HOME}/go"
-export PATH="/usr/local/sbin:/usr/local/bin:$PATH"
+export PATH="/usr/local/sbin:/usr/local/bin:$HOME/bin:$PATH"
+# brew git is located in /usr/local/bin, so we want to use this as priority
+export PATH="/usr/local/bin:${PATH}"
 # Brew mysql
-export PATH="/usr/local/opt/mysql@5.7/bin:$PATH"
+# export PATH="/usr/local/opt/mysql@5.7/bin:$PATH"
 # Add perltidy, tidyall
-export PATH="$PATH:$HOME/perl5/bin/"
+# export PATH="$PATH:$HOME/perl5/bin/"
 
 # For mysql installation for brew
-export PATH="/usr/local/opt/mysql@5.7/bin:$PATH"
+# export PATH="/usr/local/opt/mysql@5.7/bin:$PATH"
 # For compilers to find mysql@5.7 you may need to set:
 export LDFLAGS="-L/usr/local/opt/mysql@5.7/lib"
 export CPPFLAGS="-I/usr/local/opt/mysql@5.7/include"
@@ -113,6 +128,12 @@ function countLoc(){
     git clone --depth 1 "$1" "$DEST" && \
     cloc "$DEST"
 }
+
+function iterm2_print_user_vars() {
+  iterm2_set_user_var gitBranch $((git branch 2> /dev/null) | grep \* | cut -c3-)
+  iterm2_set_user_var home $(echo -n "$HOME")
+}
+
 
 if which plenv > /dev/null; then eval "$(plenv init - zsh)"; fi
 

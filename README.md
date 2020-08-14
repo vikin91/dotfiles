@@ -4,7 +4,7 @@
 
 Installing dotfiles, brew, perl env:
 
-```
+```bash
 ./setup.sh
 ./setup.sh mac
 ./setup.sh perl
@@ -12,7 +12,7 @@ Installing dotfiles, brew, perl env:
 
 Manual setup for work corporate GitHub:
 
-```
+```bash
 vim ~/.gitconfig-work
 ```
 

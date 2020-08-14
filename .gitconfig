@@ -3,12 +3,11 @@
 [github.com]
   name = vikin91
   email = vikin91@users.noreply.github.com
-[init]
-  templatedir = ~/.git-templates
 [user]
   useConfigOnly = true
 	email = vikin91@users.noreply.github.com
 	name = vikin91
+	signingkey = CF612582C7E7513B
 [alias]
 	tree = log --oneline --decorate --all --graph
 [core]
@@ -17,5 +16,7 @@
 	sslVerify = false
 [pull]
 	rebase = true
-[credential]
-	helper = cache
+[gpg]
+	program = /usr/local/bin/gpg
+[commit]
+	gpgsign = true
