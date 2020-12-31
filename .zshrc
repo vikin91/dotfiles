@@ -97,15 +97,9 @@ function gitkillbranches(){
     git branch -r | awk '{print $1}' | egrep -v -f /dev/fd/0 <(git branch -vv | grep origin) | awk '{print $1}' | xargs git branch -D
 }
 
-export GOPATH="${HOME}/go"
 export PATH="/usr/local/sbin:/usr/local/bin:$HOME/bin:$PATH"
-# brew git is located in /usr/local/bin, so we want to use this as priority
-export PATH="/usr/local/bin:${PATH}"
-# Brew mysql
-# export PATH="/usr/local/opt/mysql@5.7/bin:$PATH"
 # Add perltidy, tidyall
-# export PATH="$PATH:$HOME/perl5/bin/"
-
+export PATH="$PATH:$HOME/perl5/bin/"
 # For mysql installation for brew
 # export PATH="/usr/local/opt/mysql@5.7/bin:$PATH"
 # For compilers to find mysql@5.7 you may need to set:
@@ -115,7 +109,6 @@ export CPPFLAGS="-I/usr/local/opt/mysql@5.7/include"
 # For pkg-config to find mysql@5.7 you may need to set:
 export PKG_CONFIG_PATH="/usr/local/opt/mysql@5.7/lib/pkgconfig"
 
-export PATH="$PATH:$GOPATH/bin"
 export LANG=en_US.UTF-8
 export LC_ALL=$LANG
 export ANSIBLE_NOCOWS=1
@@ -142,6 +135,7 @@ if which plenv > /dev/null; then eval "$(plenv init - zsh)"; fi
 
 # Add visual studio code to PATH
 export PATH="$PATH:/Applications/Visual Studio Code.app/Contents/Resources/app/bin"
+export PATH="$PATH:/Applications/Sublime Text 3.app/Contents/SharedSupport/bin"
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [ -f ~/.p10k.zsh ] && source "$HOME/.p10k.zsh"
@@ -154,3 +148,5 @@ HISTCONTROL=ignoreboth
 test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
 
 test -e "${HOME}/Library/Preferences/org.dystroy.broot/launcher/bash/br" && source "${HOME}/Library/Preferences/org.dystroy.broot/launcher/bash/br"
+
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
