@@ -1,55 +1,46 @@
 set nocompatible              " be iMproved, required
 filetype off                  " required by vundle
 
-set rtp+=~/.vim/bundle/Vundle.vim
 set rtp+=/usr/local/bin/fzf
-call vundle#begin()
-" :PluginList       - lists configured plugins
-" :PluginInstall    - installs plugins; append `!` to update or just :PluginUpdate
-" :PluginSearch foo - searches for foo; append `!` to refresh local cache
-" :PluginClean      - confirms removal of unused plugins; append `!` to auto-approve removal
-Plugin 'VundleVim/Vundle.vim'
-Plugin 'SpellCheck'
+call plug#begin()
+Plug 'vim-scripts/SpellCheck'
 " Editorconfig
-Plugin 'editorconfig/editorconfig-vim'
+Plug 'editorconfig/editorconfig-vim'
 " Support for git
-Plugin 'tpope/vim-fugitive'
-" Searching with :Ack
-" Plugin 'mileszs/ack.vim'
+Plug 'tpope/vim-fugitive'
 " Vim-Go
-Plugin 'fatih/vim-go'
-Plugin 'mileszs/ack.vim'
+Plug 'fatih/vim-go'
+Plug 'mileszs/ack.vim'
 " Fuzzy searcher
-Plugin 'junegunn/fzf'
-Plugin 'junegunn/fzf.vim'
+Plug 'junegunn/fzf'
+Plug 'junegunn/fzf.vim'
 " Filemanager <F2>
-Plugin 'scrooloose/nerdtree'
+Plug 'scrooloose/nerdtree'
 " Autocompletion?
-Plugin 'ervandew/supertab'
+Plug 'ervandew/supertab'
 " Universal syntax coloring
-" Plugin 'vim-syntastic/syntastic'
+" Plug 'vim-syntastic/syntastic'
 " To get nice look-and-feel
-Plugin 'vim-airline/vim-airline'
-Plugin 'vim-airline/vim-airline-themes'
-Plugin 'altercation/vim-colors-solarized'
+Plug 'vim-airline/vim-airline'
+Plug 'vim-airline/vim-airline-themes'
+Plug 'altercation/vim-colors-solarized'
 " Makes rading and editing of md files nicer
-Plugin 'plasticboy/vim-markdown'
+Plug 'plasticboy/vim-markdown'
 " Sytax highligting specific to perl
-Plugin 'vim-perl/vim-perl'
+" Plug 'vim-perl/vim-perl'
 " <leader>T will test my perl code
-Plugin 'janko-m/vim-test'
+" Plug 'janko-m/vim-test'
 " Shows new/removed/modified lines
-Plugin 'airblade/vim-gitgutter'
+Plug 'airblade/vim-gitgutter'
 " Make it like SublimeText Cmd+L - fp on variable, then <C-n>
-Plugin 'terryma/vim-multiple-cursors'
+Plug 'terryma/vim-multiple-cursors'
 " Linting for multiple languages
-Plugin 'w0rp/ale'
+Plug 'w0rp/ale'
 " Tab9 - https://tabnine.com/
-" Plugin 'zxqfl/tabnine-vim'
-" Plugin to colorize ngix config files
-Plugin 'chr4/nginx.vim'
-call vundle#end()            " required by vundle
-filetype plugin indent on    " required by vundle
+" Plug 'zxqfl/tabnine-vim'
+" Plug to colorize ngix config files
+Plug 'chr4/nginx.vim'
+call plug#end()
 
 syntax on
 " This prevents performance degradation when handling extreemely long lines faster
@@ -100,20 +91,9 @@ autocmd FileType perl set number
 " fzf mappings
 nmap <C-p> <ESC>:FZF<CR>
 " nmap ; :Buffers<CR>
-" nmap <Leader>t :Files<CR>
-" nmap <Leader>r :Tags<CR>
+nmap <Leader>t :Files<CR>
+nmap <Leader>r :Tags<CR>
 
-" check perl code with :make
-autocmd FileType perl set makeprg=perl\ -c\ %\ $*
-autocmd FileType perl set errorformat=%f:%l:%m
-autocmd FileType perl set autowrite
-
-" disable scaning included files during autocompletion for perl i
-" reason: scanning takes too long
-augroup PerlSettings
-    autocmd!
-    autocmd FileType perl setlocal complete-=i
-augroup END
 
 " dont use Q for Ex mode
 map Q :q
@@ -130,34 +110,10 @@ vmap <s-tab> <gv
 " cut or copy some text from one window and paste it in Vim.
 set pastetoggle=<F11>
 
-" my perl includes pod
-let perl_include_pod = 1
-
-" syntax color complex things like @{${"foo"}}
-let perl_extended_vars = 1
-
-"define :Tidy command to run perltidy on visual selection || entire buffer"
-command Tidy !perltidy -q
-
-" Tidy selected lines (or entire file) with _t:
-nnoremap <F5> :%!perltidy -q<Enter>
-nnoremap <silent> <leader>p :%!perltidy -q<Enter>
-vnoremap <silent> <leader>p :!perltidy -q<Enter>
-
-" Run tidyall
-noremap <silent> _ta :!tidyall -a -q <Enter>
-
 " Cycle through buffers with C-BS
 nnoremap <Tab> :bnext<CR>
 nnoremap <S-Tab> :bprevious<CR>
 
-au BufRead,BufNewFile *.t setfiletype=perl
-:au FocusLost * :set number
-:au FocusGained * :set relativenumber
-colorscheme desert
-
-" Searchinf filed ctrlP
-" set runtimepath^=~/.vim/bundle/ctrlp.vim
 " cycle through tabs
 noremap <C-l> gt
 noremap <C-h> gT

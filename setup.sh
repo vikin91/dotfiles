@@ -20,13 +20,12 @@ function main(){
   #   git --work-tree="$DOTFILES_DIR" --git-dir="$DOTFILES_DIR/.git" pull origin master;
   # fi
 
-  install_and_enable_zsh
-  install_vundle
+  install_and_enable_zsh || true
+  install_vim_plug
   configure_iterm
 
   # Install ZSH theme
   [ -z "$ZSH_CUSTOM" ] && export ZSH_CUSTOM="${HOME}/.oh-my-zsh/custom"
-  [ -n "$ZSH_CUSTOM" ] && git clone "https://github.com/romkatv/powerlevel10k.git" "$ZSH_CUSTOM/themes/powerlevel10k"
 
   # Install .dotfiles by symlinking
   backup_and_link_dotfile ".vimrc"
@@ -34,10 +33,8 @@ function main(){
   backup_and_link_dotfile ".gitconfig"
   backup_and_link_dotfile ".git-templates"
   backup_and_link_dotfile ".zshrc"
-  backup_and_link_dotfile ".p10k.zsh"
 
   shall_install_brew && install_brew
-  shall_install_perl && install_perl
 
 
   ### SANDBOX - TO REFACTOR
@@ -59,9 +56,6 @@ function main(){
     # shellcheck source=~/.zshrc
     source "${HOME}/.zshrc"
   fi
-
-# echo "Running other installs"
-# source "$DOTFILES_DIR/install/other.sh"
 }
 
 function configure_iterm(){
@@ -87,17 +81,6 @@ function install_brew(){
   source "$DOTFILES_DIR/install/brew-cask.sh"
 }
 
-function shall_install_perl(){
-  [ "${PARAM}" == 'all' ] || [ "${PARAM}" == 'perl' ]
-}
-
-function install_perl(){
-  if [ "$PARAM" = "perl" ]; then
-    echo "Running perl installs"
-    source "$DOTFILES_DIR/install/perl.sh"
-  fi
-}
-
 function install_and_enable_zsh(){
   # Install zsh
   echo "Installing oh-my-zsh"
@@ -108,17 +91,13 @@ function install_and_enable_zsh(){
     echo "Changing shell to zsh"
     chsh -s /bin/zsh
   fi
-
-  # ZSH themes cannot be linked, must be copied
-  mkdir -p "${HOME}/.oh-my-zsh/custom/themes/lambda/"
-  cp "$DOTFILES_DIR/zsh-themes/lambda-mod.zsh-theme" ~/.oh-my-zsh/custom/themes/lambda/
 }
 
-function install_vundle(){
+function install_vim_plug(){
   # Install vundle pkg manager for vim
-  if [ ! -d "${HOME}/.vim/bundle/Vundle.vim" ]; then
-    echo "Installing Vundle for vim"
-    git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim
+  if [ ! -d "${HOME}/.vim/autoload/plug.vim" ]; then
+    echo "Installing Plug for vim"
+    curl -fLo ~/.vim/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
   fi
 }
 
