@@ -158,3 +158,5 @@ test -e "${HOME}/Library/Preferences/org.dystroy.broot/launcher/bash/br" && sour
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 # Use pip3 installed by brew
 [ -d "/usr/local/Cellar/python/3.7.6_1/Frameworks/Python.framework/Versions/3.7/bin" ] && export PATH="/usr/local/Cellar/python/3.7.6_1/Frameworks/Python.framework/Versions/3.7/bin:$PATH"
+
+eval "$(starship init zsh)"
