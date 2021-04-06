@@ -33,6 +33,7 @@ function main(){
   backup_and_link_dotfile ".gitconfig"
   backup_and_link_dotfile ".git-templates"
   backup_and_link_dotfile ".zshrc"
+  backup_and_link_dotfile ".tmux.conf"
 
   shall_install_brew && install_brew
 

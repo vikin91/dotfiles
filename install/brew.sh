@@ -28,11 +28,11 @@ apps=(
   imagemagick
   jq
   lynx
-  perl
   rsync
   shellcheck
   ssh-copy-id
   tig
+  tmux
   tree
   vim
   watch
