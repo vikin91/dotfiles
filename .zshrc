@@ -148,3 +148,4 @@ if [ -f "/opt/homebrew/completions/zsh/_brew_services" ]; then
 fi
 
 eval "$(starship init zsh)"
+export STARSHIP_CONFIG=~/.dotfiles/starship.toml
