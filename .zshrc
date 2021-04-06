@@ -97,6 +97,12 @@ function gitkillbranches(){
     git branch -r | awk '{print $1}' | egrep -v -f /dev/fd/0 <(git branch -vv | grep origin) | awk '{print $1}' | xargs git branch -D
 }
 
+# Go config
+export GOPATH=~/go/
+export GOROOT=/usr/local/go/
+export PATH=$PATH:$GOPATH/bin
+export PATH=$PATH:$GOROOT/bin
+
 export PATH="/usr/local/sbin:/usr/local/bin:$HOME/bin:$PATH"
 # Add perltidy, tidyall
 export PATH="$PATH:$HOME/perl5/bin/"
