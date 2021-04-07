@@ -10,3 +10,8 @@ disabled = true
 
 [rust]
 disabled = false
+
+[kubernetes]
+symbol = "☸ "
+format = '[$context \($namespace\)](green) '
+disabled = false
