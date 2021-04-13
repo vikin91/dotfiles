@@ -13,5 +13,5 @@ disabled = false
 
 [kubernetes]
 symbol = "☸ "
-format = '[$context \($namespace\)](green) '
+format = '[$context](green) '
 disabled = false
