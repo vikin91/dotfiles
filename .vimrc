@@ -16,7 +16,7 @@ Plug 'junegunn/fzf'
 Plug 'junegunn/fzf.vim'
 " Filemanager <F2>
 Plug 'scrooloose/nerdtree'
-" Autocompletion?
+" Auto-completion?
 Plug 'ervandew/supertab'
 " Universal syntax coloring
 " Plug 'vim-syntastic/syntastic'
@@ -25,7 +25,7 @@ Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 Plug 'altercation/vim-colors-solarized'
 " Makes rading and editing of md files nicer
-Plug 'plasticboy/vim-markdown'
+" Plug 'plasticboy/vim-markdown'
 " Sytax highligting specific to perl
 " Plug 'vim-perl/vim-perl'
 " <leader>T will test my perl code
@@ -39,12 +39,15 @@ Plug 'w0rp/ale'
 " Tab9 - https://tabnine.com/
 " Plug 'zxqfl/tabnine-vim'
 " Plug to colorize ngix config files
-Plug 'chr4/nginx.vim'
+" Plug 'chr4/nginx.vim'
 call plug#end()
 
 syntax on
 " This prevents performance degradation when handling extreemely long lines faster
 set synmaxcol=120
+
+" hybrid/relative lines numbering
+set number relativenumber
 
 " Enable spellcheck for particular types of files
 setlocal spell spelllang=en_us
@@ -54,6 +57,9 @@ autocmd FileType gitcommit setlocal spell
 " Autocompletion - press CTRL-N or CTRL-P in insert-mode to complete the word we’re typing!
 set complete+=kspell
 
+" Disable red color for marking misspelled words - instead underline them
+" hi clear SpellBad
+hi SpellBad cterm=underline cterm=NONE ctermfg=None ctermbg=None
 
 " Highlight abandoned spaces at the end of the lines http://vim.wikia.com/wiki/Highlight_unwanted_spaces
 set hlsearch
