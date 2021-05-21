@@ -37,6 +37,10 @@ export GPG_TTY
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 
 alias k=kubectl
+alias gco="git checkout"
+alias grb="git rebase"
+alias grbc="git rebase --continue"
+alias grba="git rebase --abort"
 alias livetree="watch --color -n1 git log --oneline --decorate --all --graph --color=always"
 alias gitmasterprune="git checkout master && git pull && git fetch --prune"
 alias gitmainprune="git checkout main && git pull && git fetch --prune"
@@ -112,3 +116,8 @@ fi
 
 eval "$(starship init zsh)"
 export STARSHIP_CONFIG=~/.dotfiles/starship.toml
+
+
+# Makefile targets autocompletion
+zstyle ':completion:*:*:make:*' tag-order 'targets'
+autoload -U compinit && compinit
