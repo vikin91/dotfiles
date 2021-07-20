@@ -48,6 +48,13 @@ alias gitmainprune="git checkout main && git pull && git fetch --prune"
 function gitkillbranches(){
     git branch -r | awk '{print $1}' | egrep -v -f /dev/fd/0 <(git branch -vv | grep origin) | awk '{print $1}' | xargs git branch -D
 }
+# Edit command in vim
+export EDITOR=$(command -v vim)
+# export VISUAL=$(command -v vim)
+
+# autoload -U edit-command-line
+# zle -N edit-command-line
+# bindkey -M vicmd v edit-command-line
 
 # Go config
 export GOPATH=~/go/
@@ -88,6 +95,21 @@ export PATH="$PATH:/Applications/Sublime Text 3.app/Contents/SharedSupport/bin"
 
 # tells shell to not store in history such commands that start with space (and skip duplicates)
 HISTCONTROL=ignoreboth
+HISTSIZE=50000
+HISTFILE="${HOME}/.zsh_history"
+# https://linux.die.net/man/1/zshoptions
+setopt INC_APPEND_HISTORY
+setopt HIST_IGNORE_ALL_DUPS
+setopt HIST_FIND_NO_DUPS
+setopt HIST_IGNORE_SPACE
+
+# search with up/down-arrow in history: https://superuser.com/questions/585003/searching-through-history-with-up-and-down-arrow-in-zsh
+autoload -U up-line-or-beginning-search
+autoload -U down-line-or-beginning-search
+zle -N up-line-or-beginning-search
+zle -N down-line-or-beginning-search
+bindkey "$key[Up]" up-line-or-beginning-search # Up
+bindkey "$key[Down]" down-line-or-beginning-search # Down
 
 test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
 
