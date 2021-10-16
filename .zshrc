@@ -1,4 +1,4 @@
-# Path to your oh-my-zsh installation.
+
 # export ZSH=$HOME/.oh-my-zsh
 # ZSH_THEME="robbyrussell"
 # export UPDATE_ZSH_DAYS=7
@@ -139,7 +139,8 @@ fi
 eval "$(starship init zsh)"
 export STARSHIP_CONFIG=~/.dotfiles/starship.toml
 
-
 # Makefile targets autocompletion
 zstyle ':completion:*:*:make:*' tag-order 'targets'
 autoload -U compinit && compinit
+# new version of SSH - https://aditsachde.com/posts/yubikey-ssh/
+SSH_AUTH_SOCK="~/.ssh/agent"
