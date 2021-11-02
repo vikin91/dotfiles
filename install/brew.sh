@@ -1,3 +1,5 @@
+#!/usr/bin/env bash -ex
+
 if ! is-macos -o ! is-executable ruby -o ! is-executable curl -o ! is-executable git; then
   echo "Skipped: Homebrew (missing: ruby, curl and/or git)"
   return
@@ -23,11 +25,13 @@ apps=(
   ffmpeg
   fzf
   git
-  gnu-sed --with-default-names
-  grep --with-default-names
+  gnu-sed
+  gpg
+  grep
   imagemagick
   jq
   lynx
+  pinentry-mac
   rsync
   shellcheck
   ssh-copy-id

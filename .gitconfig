@@ -1,24 +1,18 @@
-[include]
-  path = ~/.gitconfig-work
-[github.com]
-  name = vikin91
-  # email = 114479+vikin91@users.noreply.github.com # requires new signature
-  email = vikin91@users.noreply.github.com
-[user]
-  useConfigOnly = true
-  email = vikin91@users.noreply.github.com
-  name = vikin91
-  signingkey = CF612582C7E7513B
+[includeIf "gitdir:~/Workspace/"]
+  path = ~/.gitconfig-home
+[includeIf "gitdir:~/code/"]
+  path = ~/.gitconfig-redhat
+
 [alias]
   tree = log --oneline --decorate --all --graph
   conflicts = diff --name-only --diff-filter=U
 [core]
   editor = vim
 [http]
-  sslVerify = false
+  sslVerify = true
 [pull]
   rebase = true
 [gpg]
 	program = /usr/local/bin/gpg
 [commit]
-  gpgsign = true
+	gpgsign = true

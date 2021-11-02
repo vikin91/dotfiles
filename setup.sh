@@ -11,7 +11,7 @@ mkdir -p "${BACKUP_DEST}"
 BACKUP_POSTFIX="dotfiles_setup_bak_${NOW}"
 
 # Load common functions
-# shellcheck source=./lib.sh
+# shellcheck source=lib.sh
 source "$DOTFILES_DIR/lib.sh"
 
 function main(){
@@ -23,6 +23,7 @@ function main(){
   install_and_enable_zsh || true
   install_vim_plug
   configure_iterm
+  configure_starship
 
   # Install ZSH theme
   [ -z "$ZSH_CUSTOM" ] && export ZSH_CUSTOM="${HOME}/.oh-my-zsh/custom"
@@ -31,12 +32,13 @@ function main(){
   backup_and_link_dotfile ".vimrc"
   backup_and_link_dotfile ".editorconfig"
   backup_and_link_dotfile ".gitconfig"
+  backup_and_link_dotfile ".gitconfig-home"
+  backup_and_link_dotfile ".gitconfig-redhat"
   backup_and_link_dotfile ".git-templates"
   backup_and_link_dotfile ".zshrc"
   backup_and_link_dotfile ".tmux.conf"
 
   shall_install_brew && install_brew
-
 
   ### SANDBOX - TO REFACTOR
 
@@ -54,7 +56,7 @@ function main(){
     git clone --depth 1 "https://github.com/junegunn/fzf.git" "$HOME/.fzf"
     sleep 1
     [ -f "${HOME}/.fzf/install" ] && "${HOME}/.fzf/install" --all
-    # shellcheck source=~/.zshrc
+    # shellcheck source=.zshrc
     source "${HOME}/.zshrc"
   fi
 }
@@ -67,6 +69,13 @@ function configure_iterm(){
   defaults write com.googlecode.iterm2.plist PrefsCustomFolder -string "$DOTFILES_DIR"
   # Tell iTerm2 to use the custom preferences in the directory
   defaults write com.googlecode.iterm2.plist LoadPrefsFromCustomFolder -bool true
+  # Scroll working in vim without extra entry in vimrc
+  defaults write com.googlecode.iterm2 AlternateMouseScroll -bool true
+}
+
+function configure_starship(){
+  mkdir -p ~/.config
+  backup_and_link_dotfile "starship.toml" "${HOME}/.config/"
 }
 
 function shall_install_brew(){
@@ -119,8 +128,10 @@ function backup_dotfile(){
 }
 
 function backup_and_link_dotfile(){
+  local DEST
+  DEST="${2:-$HOME}"
   backup_dotfile "${1}"
-  ln -svf "$DOTFILES_DIR/${1}" "${HOME}"
+  ln -svf "$DOTFILES_DIR/${1}" "${DEST}"
 }
 
 main "$@"

@@ -15,6 +15,10 @@ Manual setup for work corporate GitHub:
 vim ~/.gitconfig-work
 ```
 
+## Fonts
+
+Starship requires a [Nerd font](https://www.nerdfonts.com/font-downloads), for example [FiraCode](https://github.com/ryanoasis/nerd-fonts/releases/download/v2.1.0/FiraCode.zip).
+
 ## Misc
 
-- Base inspired from https://github.com/webpro/dotfiles
+- Inspired by [webpro/dotfiles](https://github.com/webpro/dotfiles)

@@ -81,13 +81,11 @@ function iterm2_print_user_vars() {
   iterm2_set_user_var home $(echo -n "$HOME")
 }
 
-
 [ "$(which)" ] && export FZF_DEFAULT_COMMAND='ag --nocolor -g ""'
 [ -f "$HOME/.fzf.zsh" ] && source "$HOME/.fzf.zsh"
 
 # Add visual studio code to PATH
 export PATH="$PATH:/Applications/Visual Studio Code.app/Contents/Resources/app/bin"
-export PATH="$PATH:/Applications/Sublime Text 3.app/Contents/SharedSupport/bin"
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [ -f ~/.p10k.zsh ] && source "$HOME/.p10k.zsh"
@@ -137,10 +135,17 @@ if [ -f "/opt/homebrew/completions/zsh/_brew_services" ]; then
 fi
 
 eval "$(starship init zsh)"
-export STARSHIP_CONFIG=~/.dotfiles/starship.toml
 
 # Makefile targets autocompletion
 zstyle ':completion:*:*:make:*' tag-order 'targets'
 autoload -U compinit && compinit
 # new version of SSH - https://aditsachde.com/posts/yubikey-ssh/
 SSH_AUTH_SOCK="~/.ssh/agent"
+
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+
+# The next line updates PATH for the Google Cloud SDK.
+if [ -f '/Users/prygiels/code/google-cloud-sdk/path.zsh.inc' ]; then . '/Users/prygiels/code/google-cloud-sdk/path.zsh.inc'; fi
+
+# The next line enables shell command completion for gcloud.
+if [ -f '/Users/prygiels/code/google-cloud-sdk/completion.zsh.inc' ]; then . '/Users/prygiels/code/google-cloud-sdk/completion.zsh.inc'; fi
