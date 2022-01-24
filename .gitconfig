@@ -13,6 +13,8 @@
 # Overwrite user, email, name and signingkey if working on home machine
 [includeIf "gitdir:~/Workspace/"]
   path = ~/.gitconfig-home
+[includeIf "gitdir:~/.dotfiles/"]
+  path = ~/.gitconfig-home
 
 [alias]
   tree = log --oneline --decorate --all --graph

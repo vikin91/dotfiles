@@ -1,3 +1,8 @@
+load(){
+  if [ -f "$1" ]; then
+    . "$1"
+  fi
+}
 
 # export ZSH=$HOME/.oh-my-zsh
 # ZSH_THEME="robbyrussell"
@@ -40,7 +45,6 @@ alias ll="ls -l"
 alias lla="ls -la"
 
 alias k=kubectl
-alias kos="kubectl --kubeconfig=/Users/prygiels/go/src/github.com/stackrox/stackrox2/artifacts/os4-demo-3-68-rc1/kubeconfig"
 alias ocs="oc -n stackrox"
 
 alias gco="git checkout"
@@ -107,15 +111,9 @@ setopt HIST_IGNORE_ALL_DUPS
 setopt HIST_FIND_NO_DUPS
 setopt HIST_IGNORE_SPACE
 
-test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
-
-test -e "${HOME}/Library/Preferences/org.dystroy.broot/launcher/bash/br" && source "${HOME}/Library/Preferences/org.dystroy.broot/launcher/bash/br"
-
-# Use pip3 installed by brew
-[ -d "/usr/local/Cellar/python/3.7.6_1/Frameworks/Python.framework/Versions/3.7/bin" ] && export PATH="/usr/local/Cellar/python/3.7.6_1/Frameworks/Python.framework/Versions/3.7/bin:$PATH"
-
-[ -f $HOME/.fzf.zsh ] && source $HOME/.fzf.zsh
-[ -f $HOME/.cargo/env ] && source $HOME/.cargo/env
+load "${HOME}/.iterm2_shell_integration.zsh"
+load "${HOME}/Library/Preferences/org.dystroy.broot/launcher/bash/br"
+load "$HOME/.fzf.zsh"
 
 rm -f "/usr/local/share/zsh/site-functions/_brew"
 if [ -f "/opt/homebrew/completions/zsh/_brew" ]; then
@@ -140,15 +138,13 @@ autoload -U compinit && compinit
 # new version of SSH - https://aditsachde.com/posts/yubikey-ssh/
 # SSH_AUTH_SOCK="~/.ssh/agent" # disallows Docker to mount SSH_AUTH_SOCK from the host
 
-[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
-
 # The next line updates PATH for the Google Cloud SDK.
-if [ -f '/Users/prygiels/code/google-cloud-sdk/path.zsh.inc' ]; then . '/Users/prygiels/code/google-cloud-sdk/path.zsh.inc'; fi
+load "$HOME/code/google-cloud-sdk/path.zsh.inc"
 
 # The next line enables shell command completion for gcloud.
-if [ -f '/Users/prygiels/code/google-cloud-sdk/completion.zsh.inc' ]; then . '/Users/prygiels/code/google-cloud-sdk/completion.zsh.inc'; fi
-source "$HOME/go/src/github.com/stackrox/workflow/env.sh"
-# export PATH="/usr/local/opt/openjdk@11/bin:$PATH"
+load "$HOME/code/google-cloud-sdk/completion.zsh.inc"
+load "$HOME/go/src/github.com/stackrox/workflow/env.sh"
+
 
 # enable Emacs mode in zsh
 bindkey -e
@@ -163,9 +159,9 @@ bindkey "^[[A" up-line-or-beginning-search
 bindkey "^[[B" down-line-or-beginning-search
 # bindkey "$key[Down]" down-line-or-beginning-search # Down
 
-source /Users/prygiels/.config/broot/launcher/bash/br
+load "$HOME/.config/broot/launcher/bash/br"
 
-SSH_ENV=$HOME/.ssh/environment
+SSH_ENV="$HOME/.ssh/environment"
 
 # start the ssh-agent
 function start_agent {
