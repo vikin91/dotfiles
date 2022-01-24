@@ -6,3 +6,5 @@
   email = prygiels@redhat.com
   name = Piotr Rygielski
   signingkey = 3473F1E99B9481F3
+[alias]
+  draft = "!$HOME/bin/gerrit-draft"

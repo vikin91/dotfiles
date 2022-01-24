@@ -5,7 +5,7 @@
 # DISABLE_AUTO_TITLE="true"
 
 fpath=(~/.zsh/completion $fpath)
-plugins=(git osx docker docker-compose kubectl)
+plugins=(git osx docker kubectl)
 # source $ZSH/oh-my-zsh.sh
 
 # User configuration
@@ -36,14 +36,22 @@ export GPG_TTY
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 
+alias ll="ls -l"
+alias lla="ls -la"
+
 alias k=kubectl
+alias kos="kubectl --kubeconfig=/Users/prygiels/go/src/github.com/stackrox/stackrox2/artifacts/os4-demo-3-68-rc1/kubeconfig"
+alias ocs="oc -n stackrox"
+
 alias gco="git checkout"
 alias grb="git rebase"
 alias grbc="git rebase --continue"
 alias grba="git rebase --abort"
 alias livetree="watch --color -n1 git log --oneline --decorate --all --graph --color=always"
 alias gitmasterprune="git checkout master && git pull && git fetch --prune"
-alias gitmainprune="git checkout main && git pull && git fetch --prune"
+# alias gitmainprune="git checkout main && git pull && git fetch --prune"
+#
+[ -f ~/.config/rox ] && source ~/.config/rox
 
 function gitkillbranches(){
     git branch -r | awk '{print $1}' | egrep -v -f /dev/fd/0 <(git branch -vv | grep origin) | awk '{print $1}' | xargs git branch -D
@@ -55,15 +63,17 @@ export EDITOR=$(command -v vim)
 # autoload -U edit-command-line
 # zle -N edit-command-line
 # bindkey -M vicmd v edit-command-line
+# allows to hit esc + v to enter vim visual mode for the current command
+# set -o vi
 
 # Go config
-export GOPATH=~/go/
-export GOROOT=/usr/local/go/
-export PATH=$PATH:$GOPATH/bin
-export PATH=$PATH:$GOROOT/bin
+export GOPATH="${HOME}/go"
+# Go installed from pkg
+# export GOROOT=/usr/local/go/
+# Go installed from brew
+export GOROOT=/usr/local/opt/go/libexec
 
-export PATH="/usr/local/sbin:/usr/local/bin:$HOME/bin:$PATH"
-export PATH=/opt/homebrew/bin:$PATH
+export PATH="/usr/local/sbin:/usr/local/bin:${HOME}/bin:$GOPATH/bin:$GOROOT/bin:/opt/homebrew/bin:$PATH"
 export LANG=en_US.UTF-8
 export LC_ALL=$LANG
 
@@ -76,16 +86,12 @@ function countLoc(){
     cloc "$DEST"
 }
 
-function iterm2_print_user_vars() {
-  iterm2_set_user_var gitBranch $((git branch 2> /dev/null) | grep \* | cut -c3-)
-  iterm2_set_user_var home $(echo -n "$HOME")
-}
 
 [ "$(which)" ] && export FZF_DEFAULT_COMMAND='ag --nocolor -g ""'
 [ -f "$HOME/.fzf.zsh" ] && source "$HOME/.fzf.zsh"
 
 # Add visual studio code to PATH
-export PATH="$PATH:/Applications/Visual Studio Code.app/Contents/Resources/app/bin"
+export PATH="$PATH":'/Applications/Visual Studio Code.app/Contents/Resources/app/bin'
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [ -f ~/.p10k.zsh ] && source "$HOME/.p10k.zsh"
@@ -100,14 +106,6 @@ setopt INC_APPEND_HISTORY
 setopt HIST_IGNORE_ALL_DUPS
 setopt HIST_FIND_NO_DUPS
 setopt HIST_IGNORE_SPACE
-
-# search with up/down-arrow in history: https://superuser.com/questions/585003/searching-through-history-with-up-and-down-arrow-in-zsh
-autoload -U up-line-or-beginning-search
-autoload -U down-line-or-beginning-search
-zle -N up-line-or-beginning-search
-zle -N down-line-or-beginning-search
-bindkey "$key[Up]" up-line-or-beginning-search # Up
-bindkey "$key[Down]" down-line-or-beginning-search # Down
 
 test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
 
@@ -140,7 +138,7 @@ eval "$(starship init zsh)"
 zstyle ':completion:*:*:make:*' tag-order 'targets'
 autoload -U compinit && compinit
 # new version of SSH - https://aditsachde.com/posts/yubikey-ssh/
-SSH_AUTH_SOCK="~/.ssh/agent"
+# SSH_AUTH_SOCK="~/.ssh/agent" # disallows Docker to mount SSH_AUTH_SOCK from the host
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
@@ -149,3 +147,42 @@ if [ -f '/Users/prygiels/code/google-cloud-sdk/path.zsh.inc' ]; then . '/Users/p
 
 # The next line enables shell command completion for gcloud.
 if [ -f '/Users/prygiels/code/google-cloud-sdk/completion.zsh.inc' ]; then . '/Users/prygiels/code/google-cloud-sdk/completion.zsh.inc'; fi
+source "$HOME/go/src/github.com/stackrox/workflow/env.sh"
+# export PATH="/usr/local/opt/openjdk@11/bin:$PATH"
+
+# enable Emacs mode in zsh
+bindkey -e
+
+# search with up/down-arrow in history: https://superuser.com/questions/585003/searching-through-history-with-up-and-down-arrow-in-zsh
+autoload -U up-line-or-beginning-search
+autoload -U down-line-or-beginning-search
+zle -N up-line-or-beginning-search
+zle -N down-line-or-beginning-search
+bindkey "^[[A" up-line-or-beginning-search
+# bindkey "$key[Up]" up-line-or-beginning-search # Up
+bindkey "^[[B" down-line-or-beginning-search
+# bindkey "$key[Down]" down-line-or-beginning-search # Down
+
+source /Users/prygiels/.config/broot/launcher/bash/br
+
+SSH_ENV=$HOME/.ssh/environment
+
+# start the ssh-agent
+function start_agent {
+    echo "Initializing new SSH agent..."
+    # spawn ssh-agent
+    /usr/bin/ssh-agent | sed 's/^echo/#echo/' > ${SSH_ENV}
+    echo succeeded
+    chmod 600 "${SSH_ENV}"
+    . "${SSH_ENV}" > /dev/null
+    /usr/bin/ssh-add "$HOME/.ssh/id_ed25519"
+}
+
+if [ -f "${SSH_ENV}" ]; then
+     . "${SSH_ENV}" > /dev/null
+     ps -ef | grep "${SSH_AGENT_PID}" | grep ssh-agent$ > /dev/null || {
+        start_agent;
+    }
+else
+    start_agent;
+fi

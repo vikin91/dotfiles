@@ -1,7 +1,18 @@
+# RedHat config
+[github.com]
+  name = vikin91
+  email = prygiels@redhat.com
+[user]
+  useConfigOnly = true
+  email = prygiels@redhat.com
+  name = Piotr Rygielski
+  signingkey = 3473F1E99B9481F3
+[alias]
+  draft = "!$HOME/bin/gerrit-draft"
+
+# Overwrite user, email, name and signingkey if working on home machine
 [includeIf "gitdir:~/Workspace/"]
   path = ~/.gitconfig-home
-[includeIf "gitdir:~/code/"]
-  path = ~/.gitconfig-redhat
 
 [alias]
   tree = log --oneline --decorate --all --graph
@@ -16,3 +27,7 @@
 	program = /usr/local/bin/gpg
 [commit]
 	gpgsign = true
+[url "git@github.com:"]
+	insteadof = https://github.com/
+[url "prygiels@code.engineering.redhat.com:"]
+	insteadof = https://code.engineering.redhat.com/gerrit

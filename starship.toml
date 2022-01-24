@@ -1,17 +1,38 @@
 # Inserts a blank line between shell prompts
 add_newline = false
+command_timeout = 1000
 
 # Replace the "❯" symbol in the prompt with "➜"
 [character]                            # The name of the module we are configuring is "character"
 success_symbol = "[➜](bold green)"     # The "success_symbol" segment is being set to "➜" with the color "bold green"
+error_symbol = "[✗](bold red) "
 
 [aws]
 disabled = true
 
 [rust]
-disabled = false
+disabled = true
 
 [kubernetes]
 symbol = "☸ "
 format = '[$context](green) '
 disabled = false
+
+[kubernetes.context_aliases]
+"gke_srox-ephemeral-dev-splunk_europe-central2-a_splunk-lab-new" = "splunk0"
+
+[git_metrics]
+disabled=false
+added_style = "bold blue"
+format = '[+$added]($added_style)/[-$deleted]($deleted_style) '
+
+[env_var.RELEASE]
+default = ""
+format = "RELEASE=[$env_value]($style) "
+style = "bold red"
+
+[env_var.RC_NUMBER]
+default = ""
+format = "RC_NUMBER=[$env_value]($style) "
+style = "bold red"
+
