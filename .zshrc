@@ -4,6 +4,10 @@ load(){
   fi
 }
 
+resrc() {
+  . ~/.zshrc
+}
+
 # export ZSH=$HOME/.oh-my-zsh
 # ZSH_THEME="robbyrussell"
 # export UPDATE_ZSH_DAYS=7
@@ -44,7 +48,8 @@ export GPG_TTY
 alias ll="ls -l"
 alias lla="ls -la"
 
-alias k=kubectl
+alias k="kubectl"
+alias ks="kubectl -n stackrox"
 alias ocs="oc -n stackrox"
 
 alias gco="git checkout"
