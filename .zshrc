@@ -78,9 +78,9 @@ export EDITOR=$(command -v vim)
 # Go config
 export GOPATH="${HOME}/go"
 # Go installed from pkg
-# export GOROOT=/usr/local/go/
+test -d "/usr/local/go" && export GOROOT="/usr/local/go"
 # Go installed from brew
-export GOROOT=/usr/local/opt/go/libexec
+test -d "/usr/local/opt/go/libexec" && export GOROOT="/usr/local/opt/go/libexec"
 
 export PATH="/usr/local/sbin:/usr/local/bin:${HOME}/bin:$GOPATH/bin:$GOROOT/bin:/opt/homebrew/bin:$PATH"
 export LANG=en_US.UTF-8
