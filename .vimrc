@@ -100,6 +100,10 @@ nmap <C-p> <ESC>:FZF<CR>
 nmap <Leader>t :Files<CR>
 nmap <Leader>r :Tags<CR>
 
+" Underline spellcheck
+hi SpellBad cterm=underline ctermfg=red
+" Disable spellcheck for yamls
+autocmd FileType yaml setlocal nospell
 
 " dont use Q for Ex mode
 map Q :q

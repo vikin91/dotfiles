@@ -4,7 +4,12 @@ load(){
   fi
 }
 
-resrc() {
+je() {
+  vim ~/.zshrc ~/.config/rox
+  . ~/.zshrc
+}
+
+re() {
   . ~/.zshrc
 }
 
@@ -29,8 +34,6 @@ plugins=(git osx docker kubectl)
 # Compilation flags
 # export ARCHFLAGS="-arch x86_64"
 
-# ssh
-# export SSH_KEY_PATH="~/.ssh/rsa_id"
 #
 # GPG TTY setup
 GPG_TTY=$(tty)
@@ -52,19 +55,22 @@ alias k="kubectl"
 alias ks="kubectl -n stackrox"
 alias ocs="oc -n stackrox"
 
+alias gst="git status"
 alias gco="git checkout"
+alias gsw="git switch"
 alias grb="git rebase"
 alias grbc="git rebase --continue"
 alias grba="git rebase --abort"
 alias livetree="watch --color -n1 git log --oneline --decorate --all --graph --color=always"
 alias gitmasterprune="git checkout master && git pull && git fetch --prune"
-# alias gitmainprune="git checkout main && git pull && git fetch --prune"
-#
+alias gitmainprune="git checkout main && git pull && git fetch --prune"
+
 [ -f ~/.config/rox ] && source ~/.config/rox
 
 function gitkillbranches(){
     git branch -r | awk '{print $1}' | egrep -v -f /dev/fd/0 <(git branch -vv | grep origin) | awk '{print $1}' | xargs git branch -D
 }
+
 # Edit command in vim
 export EDITOR=$(command -v vim)
 # export VISUAL=$(command -v vim)
@@ -81,6 +87,8 @@ export GOPATH="${HOME}/go"
 test -d "/usr/local/go" && export GOROOT="/usr/local/go"
 # Go installed from brew
 test -d "/usr/local/opt/go/libexec" && export GOROOT="/usr/local/opt/go/libexec"
+# Go installed by Goland
+test -d "$HOME/go/go1.17.8" && export GOROOT="$HOME/go/go1.17.8"
 
 export PATH="/usr/local/sbin:/usr/local/bin:${HOME}/bin:$GOPATH/bin:$GOROOT/bin:/opt/homebrew/bin:$PATH"
 export LANG=en_US.UTF-8
@@ -96,8 +104,7 @@ function countLoc(){
 }
 
 
-[ "$(which)" ] && export FZF_DEFAULT_COMMAND='ag --nocolor -g ""'
-[ -f "$HOME/.fzf.zsh" ] && source "$HOME/.fzf.zsh"
+command -v ag > /dev/null && export FZF_DEFAULT_COMMAND='ag --nocolor -g ""'
 
 # Add visual studio code to PATH
 export PATH="$PATH":'/Applications/Visual Studio Code.app/Contents/Resources/app/bin'
@@ -140,8 +147,6 @@ eval "$(starship init zsh)"
 # Makefile targets autocompletion
 zstyle ':completion:*:*:make:*' tag-order 'targets'
 autoload -U compinit && compinit
-# new version of SSH - https://aditsachde.com/posts/yubikey-ssh/
-# SSH_AUTH_SOCK="~/.ssh/agent" # disallows Docker to mount SSH_AUTH_SOCK from the host
 
 # The next line updates PATH for the Google Cloud SDK.
 load "$HOME/code/google-cloud-sdk/path.zsh.inc"
@@ -166,6 +171,11 @@ bindkey "^[[B" down-line-or-beginning-search
 
 load "$HOME/.config/broot/launcher/bash/br"
 
+# ssh
+# new version of SSH - https://aditsachde.com/posts/yubikey-ssh/
+# SSH_AUTH_SOCK="~/.ssh/agent" # disallows Docker to mount SSH_AUTH_SOCK from the host
+#
+export SSH_KEY_PATH="$HOME/.ssh/id_ed25519"
 SSH_ENV="$HOME/.ssh/environment"
 
 # start the ssh-agent
@@ -176,14 +186,21 @@ function start_agent {
     echo succeeded
     chmod 600 "${SSH_ENV}"
     . "${SSH_ENV}" > /dev/null
-    /usr/bin/ssh-add "$HOME/.ssh/id_ed25519"
+    /usr/bin/ssh-add "$SSH_KEY_PATH"
 }
 
-if [ -f "${SSH_ENV}" ]; then
-     . "${SSH_ENV}" > /dev/null
-     ps -ef | grep "${SSH_AGENT_PID}" | grep ssh-agent$ > /dev/null || {
-        start_agent;
-    }
-else
-    start_agent;
-fi
+function config_agent {
+  if [ -f "${SSH_ENV}" ]; then
+       . "${SSH_ENV}" > /dev/null
+       ps -ef | grep "${SSH_AGENT_PID}" | grep ssh-agent$ > /dev/null || {
+          start_agent;
+      }
+  else
+      start_agent;
+  fi
+}
+
+function unset_agent {
+  unset SSH_AUTH_SOCK
+  unset SSH_AGENT_PID
+}

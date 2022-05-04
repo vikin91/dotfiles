@@ -1,7 +1,7 @@
 # RedHat config
 [github.com]
   name = vikin91
-  email = prygiels@redhat.com
+  email = 114479+vikin91@users.noreply.github.com
 [user]
   useConfigOnly = true
   email = 114479+vikin91@users.noreply.github.com
@@ -19,6 +19,10 @@
 [alias]
   tree = log --oneline --decorate --all --graph
   conflicts = diff --name-only --diff-filter=U
+  dp = diff --patience
+  amen = commit --amend
+  local-branches = "!git branch --format '%(refname:short) %(upstream:short)' | awk '{if (!$2) print $1;}'"
+
 [core]
   editor = vim
 [http]

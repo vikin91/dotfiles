@@ -1,6 +1,6 @@
 # Inserts a blank line between shell prompts
 add_newline = false
-command_timeout = 1000
+command_timeout = 2000
 
 # Replace the "❯" symbol in the prompt with "➜"
 [character]                            # The name of the module we are configuring is "character"
@@ -13,6 +13,12 @@ disabled = true
 [aws]
 disabled = true
 
+[gcloud]
+disabled=true
+
+[golang]
+disabled = true
+
 [rust]
 disabled = true
 
@@ -23,19 +29,26 @@ disabled = false
 
 [kubernetes.context_aliases]
 "gke_srox-ephemeral-dev-splunk_europe-central2-a_splunk-lab-new" = "splunk0"
+"gke_ultra-current-825_us-central1-b_staticdemo" = "the-demo"
+
+[git_commit]
+disabled = true
+tag_disabled=false
 
 [git_metrics]
-disabled=false
+disabled = true
 added_style = "bold blue"
 format = '[+$added]($added_style)/[-$deleted]($deleted_style) '
 
-[env_var.RELEASE]
-default = ""
-format = "RELEASE=[$env_value]($style) "
-style = "bold red"
-
-[env_var.RC_NUMBER]
-default = ""
-format = "RC_NUMBER=[$env_value]($style) "
-style = "bold red"
+# [env_var.RELEASE]
+# disabled = true
+# default = ""
+# format = "RELEASE=[$env_value]($style) "
+# style = "bold red"
+#
+# [env_var.RC_NUMBER]
+# disabled = true
+# default = ""
+# format = "RC_NUMBER=[$env_value]($style) "
+# style = "bold red"
 
