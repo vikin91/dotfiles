@@ -6,6 +6,8 @@
 	<true/>
 	<key>AlternateMouseScroll</key>
 	<true/>
+	<key>AutoHideTmuxClientSession</key>
+	<true/>
 	<key>Default Bookmark Guid</key>
 	<string>6D77079C-C084-4629-A210-55C9C2B049F5</string>
 	<key>GlobalKeyMap</key>

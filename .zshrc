@@ -204,3 +204,21 @@ function unset_agent {
   unset SSH_AUTH_SOCK
   unset SSH_AGENT_PID
 }
+
+if [ -f "${SSH_ENV}" ]; then
+     . "${SSH_ENV}" > /dev/null
+     ps -ef | grep "${SSH_AGENT_PID}" | grep ssh-agent$ > /dev/null || {
+        start_agent;
+    }
+else
+    start_agent;
+fi
+# Attach everything under tmux, if installed and $HOME/.NOTMUX doesn't exist
+if [[ $TERM != "screen" ]] && [[ -f "/usr/bin/tmux" ]] && [[ ! -f $HOME/.NOTMUX ]]; then
+    if [[ -z $(tmux ls 2> /dev/null | grep -v "attached") ]]; then
+       tmux && exit
+    else
+       tmux attach-session && exit
+    fi
+fi
+
